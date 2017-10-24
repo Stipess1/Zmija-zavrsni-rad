@@ -167,7 +167,6 @@ function keyPressed(){
       pozadina = createCanvas(600,500);
       pozadina.parent("pozadina");
       postavke = false;
-      print("nee");
       zmija.kraj();
       hrana.novaHrana();
       $togglePostavke.css({marginLeft: "202px"});
@@ -178,7 +177,6 @@ function keyPressed(){
       clear();
       pozadina = createCanvas(600,500);
       pozadina.parent("pozadina");
-      print("daa")
       zmija.kraj();
       postavke = true;
       $togglePostavke.css({marginLeft: "310px"});

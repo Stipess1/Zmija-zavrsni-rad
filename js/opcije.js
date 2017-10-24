@@ -1,5 +1,15 @@
 $(function(){
-  $("#btn").on("click", function(){
+  $(".btn").on("click", function(){
+
+    if($(this).text() === "Igraj"){
+      if(postavke){
+        pocniIgru();
+        postavke = false;
+      }
+
+      return false;
+    }
+
     switch ($("#rep option:selected").text()){
       case "Plava":
         rep = [0,0,255];
@@ -23,6 +33,9 @@ $(function(){
     else
       rubovi = false;
 
+      tekst = true;
+      vrijeme = frameCount + 30;
+      textSize(32);
   });
   $("#togglePostavke").on("click",function(){
     $("#postavke").toggle("slow");

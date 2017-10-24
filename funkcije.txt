@@ -1,0 +1,4 @@
+kada prede rekord pokazi neki text preko ekrana koji ides sa desno na ljevo.
+----------- pozadina.js -----------
+pojediHranu() - provjerava je li se zmija nalazi na istom x i y kao i hrana, 
+		ako se nalazi zovi funckiju novaHrana() i postavi novi x i y od hrane.

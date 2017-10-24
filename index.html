@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Zmija</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="29220-200.png">
+  </head>
+  <body>
+    <script src="libraries/p5/p5.js" charset="utf-8"></script>
+    <script src="libraries/jquery/jquery-3.2.1.js" charset="utf-8"></script>
+    <script src="js/Zmija.js" charset="utf-8"></script>
+    <script src="js/Hrana.js" charset="utf-8"></script>
+    <script src="js/pozadina.js" charset="utf-8"></script>
+    <script src="js/opcije.js" charset="utf-8"></script>
+    <div id="pozadina"></div>
+    <div id="podatci">
+      <div id="bodovi">
+        <p>Bodovi: </p>
+        <p id="bod">0</p>
+      </div>
+      <p id="togglePostavke">Postavke</p>
+      <div id="rekordi">
+        <p>Rekord: </p>
+        <p id="rekord">0</p>
+      </div>
+    </div>
+<div id="postavke">
+  <fieldset>
+    <legend>Postavke</legend>
+    <ul>
+      <li><label for="rep">Rep: </label><select id="rep" name="">
+        <option value="1">Bijela</option>
+        <option value="2">Crvena</option>
+        <option value="3">Plava</option>
+      </select></li>
+      <li><label for="glava">Glava: </label><select id="glava" name="">
+        <option value="1">Bijela</option>
+        <option value="2">Zelena</option>
+      </select></li>
+      <li><input type="checkbox" id="rubovi"> Rubovi</li>
+      <li><input type="checkbox" id="hrana"> Više hrane</li>
+    </ul>
+    <p id="btn">Spremi</p>
+  </fieldset>
+</div>
+  </body>
+</html>

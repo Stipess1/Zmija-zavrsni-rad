@@ -1,0 +1,80 @@
+body{
+  background-color: rgb(212, 212, 212);
+}
+#pozadina{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+#podatci{
+  padding-top: 5px;
+  width: 720px;
+  margin: auto;
+}
+p{
+  display: inline-block;
+  margin: 2px;
+}
+#bodovi{
+  float: left;
+  width: 15%;
+  background-color: rgb(132, 218, 86);
+}
+#rekordi{
+  float: right;
+  width: 15%;
+  background-color: rgb(221, 196, 64);
+}
+#postavke{
+  width: 720px;
+  margin: auto;
+  margin-top: 5px;
+}
+#togglePostavke{
+  margin: 1px;
+  margin-left: 240px;
+  border: 1px solid rgb(130, 69, 223);
+  border-radius: 5px;
+  padding: 5px;
+}
+li{
+  list-style: none;
+  margin-top: 10px;
+}
+ul{
+  width: 150px;
+}
+#rep{
+  margin-left: 22px;
+}
+#glava{
+  margin-left: 10px
+}
+#btn{
+  float: left;
+  border: 1px solid rgb(130, 69, 223);
+  border-radius: 5px;
+  padding: 3px;
+}
+#btn:hover{
+  transition-duration: 0.2s;
+  color: white;
+  background-color: rgb(130, 69, 223);
+  cursor: pointer;
+}
+#btn:active{
+  background-color: rgb(166, 75, 149);
+}
+#togglePostavke:hover{
+  transition-duration: 0.2s;
+  color: white;
+  background-color: rgb(130, 69, 223);
+  cursor: pointer;
+}
+#togglePostavke:active{
+  background-color: rgb(166, 75, 149);
+}
+fieldset{
+  border: 1px solid rgb(130, 69, 223);
+
+}

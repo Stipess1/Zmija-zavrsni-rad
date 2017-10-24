@@ -24,6 +24,6 @@ function Hrana(){
       if(pos.x === hrana.x && pos.y === hrana.y)
         this.novaHrana();
     }
-    print(this.x + " " + this.y);
+    //print(this.x + " " + this.y);
   }
 }

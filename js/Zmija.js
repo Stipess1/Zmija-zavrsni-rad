@@ -1,7 +1,7 @@
 function Zmija(){
 
-  this.x = 120;
-  this.y = 120;
+  this.x = 50;
+  this.y = 50;
   this.xbrzina = 0;
   this.ybrzina = 0;
   this.bodovi = 0;
@@ -14,7 +14,6 @@ function Zmija(){
       for(let i = 0; i < this.rep.length; i++){
         this.rep[i] = this.rep[i+1];
       }
-      //print(this.rep.length);
     }
     this.rep[this.bodovi-1] = createVector(this.x, this.y);
 
@@ -26,7 +25,6 @@ function Zmija(){
 
     this.x += this.xbrzina * resetka;
     this.y += this.ybrzina * resetka;
-    //print(this.rep.length);
 
     fill(glava);
     rect(this.x, this.y, resetka, resetka);
@@ -48,13 +46,12 @@ function Zmija(){
         this.kraj();
       }
     }
-
   }
 
   this.kraj = function(){
     print(this.x + " " + this.y);
-    this.x = 120;
-    this.y = 120;
+    this.x = 50;
+    this.y = 50;
     this.ybrzina = 0;
     this.xbrzina = 0;
     this.bodovi = 0;

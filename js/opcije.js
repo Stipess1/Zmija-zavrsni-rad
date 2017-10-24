@@ -18,7 +18,6 @@ $(function(){
         glava = [0,255,0];
       break
     }
-
     if($("#rubovi").is(":checked"))
       rubovi = true;
     else
@@ -26,6 +25,6 @@ $(function(){
 
   });
   $("#togglePostavke").on("click",function(){
-    $("#postavke").toggle();
+    $("#postavke").toggle("slow");
   });
 });

@@ -14,12 +14,20 @@ let istiFps;
 let resetka   = 10;
 // (postavke) ako je true pokazi ekran sa opcijama
 let postavke  = true;
-// (rep i glava) oboji glavu i rep (RGB)
-let rep       = [255,255,255];
-let glava     = [255,255,255];
+// (rep, glava i hrana) oboji glavu, rep i hranu (RGB)
+let rep        = [255,255,255];
+let glava      = [255,255,255];
 let ihrana     = [255,0,255];
+// Postavljamo pozadinu u div sa id "pozadina"
 let pozadina;
+// Dohvacamo elemente
+let $bodovi;
+let $rekordi
+let $togglePostavke
 function setup(){
+  $bodovi         = $("#bodovi");
+  $rekordi        = $("#rekordi");
+  $togglePostavke = $("#togglePostavke");
   if(postavke)
   {
     frameRate(15);
@@ -27,9 +35,10 @@ function setup(){
     pozadina.parent("pozadina");
     hrana = new Hrana();
     zmija = new Zmija();
-    zmija.xbrzina = 1;
-    $("#bodovi").toggle();
-    $("#rekordi").toggle();
+    hrana.stvoriHranu();
+    postaviDemo();
+    $bodovi.toggle();
+    $rekordi.toggle();
   }
   else{
     frameRate(15);
@@ -44,8 +53,9 @@ function setup(){
 function draw(){
   if(postavke){
     background(0);
-    zmija.prikazi();
     skreni();
+    zmija.prikazi();
+    hrana.stvoriHranu();
     //print(zmija.x + " " + zmija.y);
   }else{
     noStroke();
@@ -63,23 +73,38 @@ function draw(){
   //print(zmija.x + " " + zmija.y);
 }
 
+function postaviDemo(){
+  zmija.xbrzina = 1;
+  zmija.x = 50;
+  zmija.y = 50;
+}
+
 function skreni(){
-  if(zmija.x === 450 && zmija.y === 120){
+  if(zmija.x === width-50 && zmija.y === height-(height-50)){
+    if(zmija.bodovi < 6)
+      zmija.bodovi++;
     zmija.xbrzina = 0;
     zmija.ybrzina = 1;
   }
-  else if(zmija.x === 450 && zmija.y === 350){
+  else if(zmija.x === width-50 && zmija.y === height-50){
+    if(zmija.bodovi < 6)
+      zmija.bodovi++;
     zmija.xbrzina = -1
     zmija.ybrzina = 0;
   }
-  else if(zmija.x === 120 && zmija.y === 350){
+  else if(zmija.x === width-(width-50) && zmija.y === height-50){
+    if(zmija.bodovi < 6)
+      zmija.bodovi++;
     zmija.xbrzina = 0;
     zmija.ybrzina = -1;
   }
-  else if(zmija.x === 120 && zmija.y === 120)
+  else if(zmija.x === width-(width-50) && zmija.y === height-(height-50))
   {
+    if(zmija.bodovi < 6)
+      zmija.bodovi++;
     zmija.xbrzina = 1;
     zmija.ybrzina = 0;
+
   }
 }
 
@@ -142,24 +167,23 @@ function keyPressed(){
       pozadina = createCanvas(600,500);
       pozadina.parent("pozadina");
       postavke = false;
-      $("#postavke").toggle();
-      $("#bodovi").toggle();
-      $("#rekordi").toggle();
+      print("nee");
+      zmija.kraj();
+      hrana.novaHrana();
+      $togglePostavke.css({marginLeft: "202px"});
+      $bodovi.toggle();
+      $rekordi.toggle();
     }
     else {
       clear();
       pozadina = createCanvas(600,500);
       pozadina.parent("pozadina");
-      zmija.x = 120;
-      zmija.y = 120;
-      zmija.ybrzina = 0;
-      zmija.xbrzina = 1;
-      zmija.bodovi = 0;
-      zmija.rep = [];
+      print("daa")
+      zmija.kraj();
       postavke = true;
-      $("#postavke").toggle();
-      $("#bodovi").toggle();
-      $("#rekordi").toggle();
+      $togglePostavke.css({marginLeft: "310px"});
+      $bodovi.toggle();
+      $rekordi.toggle();
     }
     break;
   }

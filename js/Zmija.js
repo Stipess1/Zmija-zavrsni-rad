@@ -1,15 +1,13 @@
 function Zmija(){
 
-  this.x = 50;
-  this.y = 50;
+  this.x = 60;
+  this.y = 60;
   this.xbrzina = 0;
   this.ybrzina = 0;
   this.bodovi = 0;
   this.rep = [];
 
   this.prikazi = function(){
-
-
     if(this.rep.length === this.bodovi){
       for(let i = 0; i < this.rep.length; i++){
         this.rep[i] = this.rep[i+1];
@@ -49,9 +47,9 @@ function Zmija(){
   }
 
   this.kraj = function(){
-    print(this.x + " " + this.y);
-    this.x = 50;
-    this.y = 50;
+    //print(this.x + " " + this.y);
+    this.x = 60;
+    this.y = 60;
     this.ybrzina = 0;
     this.xbrzina = 0;
     this.bodovi = 0;

@@ -1,6 +1,7 @@
 // (zmija i hrana) varijable koje se referiraju svojim objketima
 let zmija;
 let hrana;
+let rezolucija;
 // (rubovi) ako je false zmija se ne resetira kada uradi rub
 let rubovi = false;
 /*
@@ -15,7 +16,7 @@ let tekst = false;
 let vrijeme;
 // -------------------------
 // (resetka) dijelimo width i height i dobivamo broj stupaca i redaka
-let resetka = 10;
+let resetka = 20;
 // (postavke) ako je true pokazi ekran sa opcijama
 let postavke = true;
 // (rep, glava i hrana) oboji glavu, rep i hranu (RGB)
@@ -28,24 +29,18 @@ let pozadina;
 let $bodovi;
 let $rekordi
 let $togglePostavke
-
 function setup() {
+  rezolucija = new Rezolucija(windowWidth, windowHeight);
   $bodovi = $("#bodovi");
   $rekordi = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
+  noStroke();
   if (postavke) {
-    frameRate(frame);
-    pozadina = createCanvas(600, 500);
-    pozadina.parent("pozadina");
-    hrana = new Hrana();
-    zmija = new Zmija();
-    hrana.stvoriHranu();
-    postaviDemo();
-    $bodovi.toggle();
-    $rekordi.toggle();
+    pocniDemo();
   } else {
     frameRate(frame);
-    pozadina = createCanvas(600, 500);
+    rezolucija.provjeriRezoluciju();
+    pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
     pozadina.parent("pozadina");
     hrana = new Hrana();
     zmija = new Zmija();
@@ -61,9 +56,9 @@ function draw() {
     hrana.stvoriHranu();
     if (tekst)
       pokaziTekst();
-    //print(zmija.x + " " + zmija.y);
+    print(zmija.x + " " + zmija.y);
   } else {
-    noStroke();
+    print(zmija.x + " " + zmija.y);
     background(0);
     zmija.prikazi();
     zmija.rubovi();
@@ -86,27 +81,27 @@ function pokaziTekst() {
 
 function postaviDemo() {
   zmija.xbrzina = 1;
-  zmija.x = 50;
-  zmija.y = 50;
+  zmija.x = 20;
+  zmija.y = 20;
 }
-
+// width: 600, height: 500
 function skreni() {
-  if (zmija.x === width - 50 && zmija.y === height - (height - 50)) {
+  if (zmija.x === width - 40 && zmija.y === height - (height - 20)) {
     if (zmija.bodovi < 6)
       zmija.bodovi++;
     zmija.xbrzina = 0;
     zmija.ybrzina = 1;
-  } else if (zmija.x === width - 50 && zmija.y === height - 50) {
+  } else if (zmija.x === width - 40 && zmija.y === height - 40) {
     if (zmija.bodovi < 6)
       zmija.bodovi++;
     zmija.xbrzina = -1
     zmija.ybrzina = 0;
-  } else if (zmija.x === width - (width - 50) && zmija.y === height - 50) {
+  } else if (zmija.x === width - (width - 20) && zmija.y === height - 40) {
     if (zmija.bodovi < 6)
       zmija.bodovi++;
     zmija.xbrzina = 0;
     zmija.ybrzina = -1;
-  } else if (zmija.x === width - (width - 50) && zmija.y === height - (height - 50)) {
+  } else if (zmija.x === width - (width - 20) && zmija.y === height - (height - 20)) {
     if (zmija.bodovi < 6)
       zmija.bodovi++;
     zmija.xbrzina = 1;
@@ -127,11 +122,12 @@ function pojediHranu() {
 
 function pocniIgru(){
   clear();
-  pozadina = createCanvas(600, 500);
+  rezolucija.provjeriRezoluciju();
+  pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
+  hrana.novaHrana();
   postavke = false;
   zmija.kraj();
-  hrana.novaHrana();
   $("#postavke").hide("slow");
   $togglePostavke.css({
     marginLeft: "202px"
@@ -142,9 +138,13 @@ function pocniIgru(){
 
 function pocniDemo(){
   clear();
+  frameRate(frame);
+  resetka = 20;
   pozadina = createCanvas(600, 500);
   pozadina.parent("pozadina");
-  zmija.kraj();
+  hrana = new Hrana();
+  zmija = new Zmija();
+  postaviDemo();
   postavke = true;
   $("#postavke").show("slow");
   $togglePostavke.css({
@@ -155,7 +155,6 @@ function pocniDemo(){
 }
 
 function keyPressed() {
-
   switch (keyCode) {
     case RIGHT_ARROW:
       if (postavke)
@@ -212,5 +211,7 @@ function keyPressed() {
        else
         pocniDemo();
       break;
+
   }
+  return false;
 }

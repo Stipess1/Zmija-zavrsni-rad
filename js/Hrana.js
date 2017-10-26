@@ -8,12 +8,14 @@ function Hrana(){
   }
 
   this.novaHrana = function(){
-    let stupac = width / resetka;
-    let redak  = height / resetka;
+    let stupac = rezolucija.sirina / resetka;
+    let redak  = rezolucija.visina / resetka;
 
     this.x = floor(random(stupac)) * resetka;
-    this.y = floor(random(redak))  * resetka
+    this.y = floor(random(redak))  * resetka;
 
+    print("Hrana: " + this.x + " " + this.y);
+    print(rezolucija.sirina + " " + rezolucija.visina);
     /*
       Zna se desit kada je zmija velika da se hrana stvori na repu
       pomocu for petlje gledamo jel se hrana stvorila na repu ako je
@@ -24,6 +26,5 @@ function Hrana(){
       if(pos.x === hrana.x && pos.y === hrana.y)
         this.novaHrana();
     }
-    //print(this.x + " " + this.y);
   }
 }

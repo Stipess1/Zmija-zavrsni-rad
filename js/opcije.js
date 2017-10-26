@@ -3,10 +3,12 @@ $(function(){
 
     if($(this).text() === "Igraj"){
       if(postavke){
+        if($("#rubovi").is(":checked"))
+          rubovi = true;
+        else
+          rubovi = false;
         pocniIgru();
-        postavke = false;
       }
-
       return false;
     }
 
@@ -39,5 +41,7 @@ $(function(){
   });
   $("#togglePostavke").on("click",function(){
     $("#postavke").toggle("slow");
+    if(!postavke)
+      pocniDemo();
   });
 });

@@ -14,8 +14,6 @@ function Hrana(){
     this.x = floor(random(stupac)) * resetka;
     this.y = floor(random(redak))  * resetka;
 
-    print("Hrana: " + this.x + " " + this.y);
-    print(rezolucija.sirina + " " + rezolucija.visina);
     /*
       Zna se desit kada je zmija velika da se hrana stvori na repu
       pomocu for petlje gledamo jel se hrana stvorila na repu ako je

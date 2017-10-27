@@ -4,17 +4,15 @@ function Rezolucija(sirina, visina){
 
     this.provjeriRezoluciju = function(){
       print(this.sirina);
-      if(this.sirina >= 1900 || this.sirina === 1700){
+      if(this.sirina >= 1900 || this.sirina === 1700)
         this.sirina = 1700;
-        resetka = 20;
-      }else if (this.sirina >= 1600 || this.sirina === 1600){
+      else if (this.sirina >= 1600 || this.sirina === 1600)
         this.sirina = 1400;
-
-      }else if (this.sirina >= 1200 || this.sirina === 1200)
-        this.sirina = 900;
+      else if (this.sirina >= 1200 || this.sirina === 1200)
+        this.sirina = 1100;
       else {
-        this.sirina = 800;
-        resetka = 10;
+        this.sirina = 900;
+        //resetka = 10;
       }
 
 
@@ -22,7 +20,7 @@ function Rezolucija(sirina, visina){
         this.visina = 800;
       else {
         this.visina = 600;
-        resetka = 10;
+        //resetka = 10;
       }
 
     }

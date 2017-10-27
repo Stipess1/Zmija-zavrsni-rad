@@ -23,12 +23,10 @@ p{
 #bodovi{
   float: left;
   width: 15%;
-  background-color: rgb(132, 218, 86);
 }
 #rekordi{
   float: right;
   width: 15%;
-  background-color: rgb(221, 196, 64);
 }
 #postavke{
   width: 720px;

@@ -8,9 +8,8 @@ let rubovi = false;
   kada igrac stisne dvije tipke u istom trenutku
   zna se desit da zmija pojede samu sebe
 */
-let fps;
-let istiFps;
 let frame = 15;
+let smjer = [];
 // Crtanje teksta
 let tekst = false;
 let vrijeme;
@@ -37,14 +36,6 @@ function setup() {
   noStroke();
   if (postavke) {
     pocniDemo();
-  } else {
-    frameRate(frame);
-    rezolucija.provjeriRezoluciju();
-    pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
-    pozadina.parent("pozadina");
-    hrana = new Hrana();
-    zmija = new Zmija();
-    hrana.novaHrana();
   }
 }
 
@@ -56,11 +47,10 @@ function draw() {
     hrana.stvoriHranu();
     if (tekst)
       pokaziTekst();
-    print(zmija.x + " " + zmija.y);
   } else {
-    print(zmija.x + " " + zmija.y);
     background(0);
     zmija.prikazi();
+    zmija.provjeriSmjer();
     zmija.rubovi();
     hrana.stvoriHranu();
     zmija.smrt();
@@ -122,6 +112,7 @@ function pojediHranu() {
 
 function pocniIgru(){
   clear();
+  rezolucija = new Rezolucija(windowWidth, windowHeight);
   rezolucija.provjeriRezoluciju();
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
@@ -161,44 +152,34 @@ function keyPressed() {
         break;
       if (zmija.rep[0] != null && zmija.xbrzina == -1)
         break;
-      if (fps === istiFps)
-        break;
-      zmija.xbrzina = 1;
-      zmija.ybrzina = 0;
-      fps = istiFps;
+        smjer.push([1,0]);
+        print(smjer);
+      //if (fps === istiFps)
+      //  break;
+      // zmija.xbrzina = 1;
+      // zmija.ybrzina = 0;
+      // fps = istiFps;
       break;
     case LEFT_ARROW:
       if (postavke)
         break;
       if (zmija.rep[0] != null && zmija.xbrzina == 1)
         break;
-      if (fps === istiFps)
-        break;
-      zmija.xbrzina = -1
-      zmija.ybrzina = 0;
-      fps = istiFps;
+        smjer.push([-1,0]);
       break;
     case UP_ARROW:
       if (postavke)
         break;
       if (zmija.rep[0] != null && zmija.ybrzina == 1)
         break;
-      if (fps === istiFps)
-        break;
-      zmija.xbrzina = 0;
-      zmija.ybrzina = -1;
-      fps = istiFps;
+        smjer.push([0,-1]);
       break;
     case DOWN_ARROW:
       if (postavke)
         break;
       if (zmija.rep[0] != null && zmija.ybrzina == -1)
         break;
-      if (fps === istiFps)
-        break;
-      zmija.xbrzina = 0;
-      zmija.ybrzina = 1;
-      fps = istiFps;
+        smjer.push([0,1]);
       break;
     case 65:
       if (postavke)

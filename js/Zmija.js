@@ -46,6 +46,15 @@ function Zmija(){
     }
   }
 
+  this.provjeriSmjer = function(){
+    if(smjer.length){
+      let razdjeli = smjer[0].toString().split(",");
+      this.xbrzina = parseInt(razdjeli[0]);
+      this.ybrzina = parseInt(razdjeli[1]);
+      smjer.shift();
+    }
+  }
+
   this.kraj = function(){
     //print(this.x + " " + this.y);
     this.x = 60;

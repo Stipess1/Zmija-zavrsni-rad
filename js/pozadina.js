@@ -2,8 +2,10 @@
 let zmija;
 let hrana;
 let rezolucija;
+let Vhrane = [];
 // (rubovi) ako je false zmija se ne resetira kada uradi rub
 let rubovi = false;
+let viseHrani = false;
 /*
   kada igrac stisne dvije tipke u istom trenutku
   zna se desit da zmija pojede samu sebe
@@ -33,6 +35,7 @@ function setup() {
   $bodovi = $("#bodovi");
   $rekordi = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
+
   noStroke();
   if (postavke) {
     pocniDemo();
@@ -52,11 +55,24 @@ function draw() {
     zmija.prikazi();
     zmija.provjeriSmjer();
     zmija.rubovi();
-    hrana.stvoriHranu();
+    if(viseHrani){
+      for(let i = 0; i < Vhrane.length; i++)
+        Vhrane[i].stvoriHranu();
+    }
+    else{
+      hrana.stvoriHranu();
+    }
     zmija.smrt();
     pojediHranu();
-    fps = frameCount;
   }
+}
+
+function viHrane(){
+  for(let i = 0; i <= 3; i++){
+    Vhrane[i] = new Hrana();
+    Vhrane[i].novaHrana();
+  }
+
 }
 
 function pokaziTekst() {
@@ -101,12 +117,25 @@ function skreni() {
 }
 
 function pojediHranu() {
-  if (zmija.x === hrana.x && zmija.y === hrana.y) {
-    hrana.novaHrana();
-    zmija.bodovi++;
-    $("#bod").text(zmija.bodovi);
-    if (parseInt($("#bod").text()) > parseInt($("#rekord").text()))
-      $("#rekord").text(zmija.bodovi);
+  if(viseHrani){
+    for(let i = 0; i < Vhrane.length; i++){
+      if(zmija.x === Vhrane[i].x && zmija.y === Vhrane[i].y){
+        zmija.bodovi++;
+        Vhrane[i].novaHrana();
+        $("#bod").text(zmija.bodovi);
+        if (parseInt($("#bod").text()) > parseInt($("#rekord").text()))
+          $("#rekord").text(zmija.bodovi);
+      }
+    }
+  }
+  else{
+    if (zmija.x === hrana.x && zmija.y === hrana.y) {
+      hrana.novaHrana();
+      zmija.bodovi++;
+      $("#bod").text(zmija.bodovi);
+      if (parseInt($("#bod").text()) > parseInt($("#rekord").text()))
+        $("#rekord").text(zmija.bodovi);
+    }
   }
 }
 
@@ -116,13 +145,17 @@ function pocniIgru(){
   rezolucija.provjeriRezoluciju();
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
-  hrana.novaHrana();
+  if(viseHrani)
+    viHrane();
+  else
+    hrana.novaHrana();
   postavke = false;
   zmija.kraj();
   $("#postavke").hide("slow");
   $togglePostavke.css({
     marginLeft: "202px"
   });
+
   $bodovi.toggle();
   $rekordi.toggle();
 }
@@ -153,12 +186,6 @@ function keyPressed() {
       if (zmija.rep[0] != null && zmija.xbrzina == -1)
         break;
         smjer.push([1,0]);
-        print(smjer);
-      //if (fps === istiFps)
-      //  break;
-      // zmija.xbrzina = 1;
-      // zmija.ybrzina = 0;
-      // fps = istiFps;
       break;
     case LEFT_ARROW:
       if (postavke)

@@ -7,6 +7,11 @@ $(function(){
           rubovi = true;
         else
           rubovi = false;
+
+        if($("#hrana").is(":checked"))
+          viseHrani = true;
+        else
+          viseHrani = false;
         pocniIgru();
       }
       return false;
@@ -30,10 +35,16 @@ $(function(){
         glava = [0,255,0];
       break
     }
+
     if($("#rubovi").is(":checked"))
       rubovi = true;
     else
       rubovi = false;
+
+    if($("#hrana").is(":checked"))
+      viseHrani = true;
+    else
+      viseHrani = false;
 
       tekst = true;
       vrijeme = frameCount + 30;

@@ -64,6 +64,9 @@ function Zmija(){
     this.bodovi = 0;
     this.rep = [];
     $("#bod").text(this.bodovi);
+    print("da");
+    boolRekord = false;
+    zvukKraj.play();
   }
 
   this.smrt = function(){

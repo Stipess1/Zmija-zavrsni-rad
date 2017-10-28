@@ -13,6 +13,7 @@ $(function(){
         else
           viseHrani = false;
         pocniIgru();
+        zvukGumb.play();
       }
       return false;
     }
@@ -49,6 +50,7 @@ $(function(){
       tekst = true;
       vrijeme = frameCount + 30;
       textSize(32);
+      zvukGumb.play();
   });
   $("#togglePostavke").on("click",function(){
     $("#postavke").toggle("slow");

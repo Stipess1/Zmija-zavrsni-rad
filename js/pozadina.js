@@ -15,6 +15,12 @@ let smjer = [];
 // Crtanje teksta
 let tekst = false;
 let vrijeme;
+// Zvukovi
+let zvukHrana;
+let zvukKraj;
+let zvukGumb;
+let zvukRekord;
+let boolRekord = false;
 // -------------------------
 // (resetka) dijelimo width i height i dobivamo broj stupaca i redaka
 let resetka = 20;
@@ -30,12 +36,24 @@ let pozadina;
 let $bodovi;
 let $rekordi
 let $togglePostavke
+
+function preload(){
+  zvukGumb    = loadSound("zvuk/Gumb.mp3");
+  zvukHrana   = loadSound("zvuk/Hrana.mp3");
+  zvukKraj    = loadSound("zvuk/Kraj.mp3");
+  zvukRekord  = loadSound("zvuk/Rekord.mp3");
+
+  zvukGumb.setVolume(0.1);
+  zvukHrana.setVolume(0.1);
+  zvukKraj.setVolume(0.1);
+  zvukRekord.setVolume(0.1);
+}
+
 function setup() {
   rezolucija = new Rezolucija(windowWidth, windowHeight);
   $bodovi = $("#bodovi");
   $rekordi = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
-
   noStroke();
   if (postavke) {
     pocniDemo();
@@ -46,13 +64,13 @@ function draw() {
   if (postavke) {
     background(0);
     skreni();
-    zmija.prikazi();
     hrana.stvoriHranu();
+    zmija.prikazi();
     if (tekst)
       pokaziTekst();
   } else {
     background(0);
-    zmija.prikazi();
+
     zmija.provjeriSmjer();
     zmija.rubovi();
     if(viseHrani){
@@ -62,6 +80,7 @@ function draw() {
     else{
       hrana.stvoriHranu();
     }
+    zmija.prikazi();
     zmija.smrt();
     pojediHranu();
   }
@@ -123,8 +142,14 @@ function pojediHranu() {
         zmija.bodovi++;
         Vhrane[i].novaHrana();
         $("#bod").text(zmija.bodovi);
-        if (parseInt($("#bod").text()) > parseInt($("#rekord").text()))
+        zvukHrana.play();
+        if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
           $("#rekord").text(zmija.bodovi);
+          if(!boolRekord){
+            zvukRekord.play();
+            boolRekord = true;
+          }
+        }
       }
     }
   }
@@ -133,8 +158,14 @@ function pojediHranu() {
       hrana.novaHrana();
       zmija.bodovi++;
       $("#bod").text(zmija.bodovi);
-      if (parseInt($("#bod").text()) > parseInt($("#rekord").text()))
+      zvukHrana.play();
+      if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
         $("#rekord").text(zmija.bodovi);
+        if(!boolRekord){
+          zvukRekord.play();
+          boolRekord = true;
+        }
+      }
     }
   }
 }

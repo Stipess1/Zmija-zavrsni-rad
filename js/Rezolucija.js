@@ -19,8 +19,6 @@ function Rezolucija(sirina, visina){
         this.visina = 800;
       else
         this.visina = 600;
-
-
     }
 
 }

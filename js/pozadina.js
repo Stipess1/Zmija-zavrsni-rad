@@ -38,15 +38,15 @@ let $rekordi
 let $togglePostavke
 
 function preload(){
-  zvukGumb    = loadSound("zvuk/Gumb.mp3");
-  zvukHrana   = loadSound("zvuk/Hrana.mp3");
-  zvukKraj    = loadSound("zvuk/Kraj.mp3");
-  zvukRekord  = loadSound("zvuk/Rekord.mp3");
-
-  zvukGumb.setVolume(0.1);
-  zvukHrana.setVolume(0.1);
-  zvukKraj.setVolume(0.1);
-  zvukRekord.setVolume(0.1);
+  // zvukGumb    = loadSound("zvuk/Gumb.mp3");
+  // zvukHrana   = loadSound("zvuk/Hrana.mp3");
+  // zvukKraj    = loadSound("zvuk/Kraj.mp3");
+  // zvukRekord  = loadSound("zvuk/Rekord.mp3");
+  //
+  // zvukGumb.setVolume(0.1);
+  // zvukHrana.setVolume(0.1);
+  // zvukKraj.setVolume(0.1);
+  // zvukRekord.setVolume(0.1);
 }
 
 function setup() {

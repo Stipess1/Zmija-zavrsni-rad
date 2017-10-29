@@ -10,18 +10,16 @@ function Rezolucija(sirina, visina){
         this.sirina = 1400;
       else if (this.sirina >= 1200 || this.sirina === 1200)
         this.sirina = 1100;
-      else {
+      else
         this.sirina = 900;
-        //resetka = 10;
-      }
+
 
 
       if (this.visina >= 900 || this.visina === 800)
         this.visina = 800;
-      else {
+      else
         this.visina = 600;
-        //resetka = 10;
-      }
+
 
     }
 

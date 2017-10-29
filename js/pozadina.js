@@ -55,9 +55,7 @@ function setup() {
   $rekordi = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
   noStroke();
-  if (postavke) {
-    pocniDemo();
-  }
+  pocniDemo();
 }
 
 function draw() {
@@ -70,7 +68,6 @@ function draw() {
       pokaziTekst();
   } else {
     background(0);
-
     zmija.provjeriSmjer();
     zmija.rubovi();
     if(viseHrani){
@@ -87,11 +84,14 @@ function draw() {
 }
 
 function viHrane(){
-  for(let i = 0; i <= 3; i++){
-    Vhrane[i] = new Hrana();
-    Vhrane[i].novaHrana();
+  if(viseHrani){
+    for(let i = 0; i < 4; i++){
+      Vhrane[i] = new Hrana();
+      Vhrane[i].novaHrana();
+    }
   }
-
+  else
+    hrana.novaHrana();
 }
 
 function pokaziTekst() {
@@ -176,17 +176,11 @@ function pocniIgru(){
   rezolucija.provjeriRezoluciju();
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
-  if(viseHrani)
-    viHrane();
-  else
-    hrana.novaHrana();
-  postavke = false;
+  viHrane();
   zmija.kraj();
-  $("#postavke").hide("slow");
-  $togglePostavke.css({
-    marginLeft: "202px"
-  });
 
+  $("#postavke").hide("slow");
+  $togglePostavke.css({marginLeft: "202px"});
   $bodovi.toggle();
   $rekordi.toggle();
 }
@@ -201,10 +195,9 @@ function pocniDemo(){
   zmija = new Zmija();
   postaviDemo();
   postavke = true;
+
   $("#postavke").show("slow");
-  $togglePostavke.css({
-    marginLeft: "310px"
-  });
+  $togglePostavke.css({ marginLeft: "310px" });
   $bodovi.toggle();
   $rekordi.toggle();
 }

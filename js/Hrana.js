@@ -21,7 +21,7 @@ function Hrana(){
     */
     for(let i = 0; i < zmija.rep.length; i++){
       let pos = zmija.rep[i];
-      if(pos.x === hrana.x && pos.y === hrana.y)
+      if(pos.x === this.x && pos.y === this.y)
         this.novaHrana();
     }
   }

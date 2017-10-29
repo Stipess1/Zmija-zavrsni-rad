@@ -1,7 +1,6 @@
 body{
   background-color: rgb(235, 235, 235);
   margin: 0px;
-
 }
 #pozadina{
   align-items: center;
@@ -46,10 +45,11 @@ li{
   margin-top: 10px;
 }
 ul{
-  width: 150px;
+  width: 250px;
+  margin-right: 0px;
 }
 #rep{
-  margin-left: 22px;
+  /*margin-left: 22px;*/
 }
 #glava{
   margin-left: 10px
@@ -60,6 +60,13 @@ ul{
   border: 2px solid rgb(130, 69, 223);
   border-radius: 5px;
   padding: 3px;
+}
+#zvuk{
+  float: right;
+
+}
+#volume{
+  float: right;
 }
 .btn:hover{
   transition-duration: 0.2s;
@@ -73,6 +80,9 @@ ul{
 .desno{
   float: right;
 }
+#slider{
+  float: right;
+}
 #togglePostavke:hover{
   transition-duration: 0.2s;
   color: white;
@@ -83,6 +93,7 @@ ul{
   background-color: rgb(166, 75, 149);
 }
 fieldset{
+  margin: 0px;
   border: 1px solid rgb(130, 69, 223);
 }
 option{
@@ -92,7 +103,4 @@ select{
   background-color: rgb(235, 235, 235);
   outline: none;
   border: none;
-}
-input[type=checkbox]{
-
 }

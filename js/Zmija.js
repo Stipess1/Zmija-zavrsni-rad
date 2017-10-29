@@ -64,9 +64,11 @@ function Zmija(){
     this.bodovi = 0;
     this.rep = [];
     $("#bod").text(this.bodovi);
-    print("da");
     boolRekord = false;
-    zvukKraj.play();
+    if(!postavke)
+      zvukKraj.play();
+
+    postavke = false;
   }
 
   this.smrt = function(){

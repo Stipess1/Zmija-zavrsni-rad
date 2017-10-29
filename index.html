@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <title>Zmija</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="icon" href="icon.png">
   </head>
   <body>
     <script src="libraries/p5/p5.js" charset="utf-8"></script>
-    <script src="libraries/jquery/jquery-3.2.1.js" charset="utf-8"></script>
+    <script src="libraries/jquery/jquery.js" charset="utf-8"></script>
+    <script src="libraries/jquery/jquery-ui.js" charset="utf-8"></script>
     <script src="libraries/p5/addons/p5.sound.js" charset="utf-8"></script>
     <script src="js/pozadina.js" charset="utf-8"></script>
     <script src="js/Zmija.js" charset="utf-8"></script>
@@ -18,31 +20,33 @@
     <div id="pozadina"></div>
     <div id="podatci">
       <div id="bodovi">
-        <p>Bodovi: </p>
+        <p id="bod">Bodovi: </p>
         <p id="bod">0</p>
       </div>
       <p id="togglePostavke">Postavke</p>
       <div id="rekordi">
-        <p>Rekord: </p>
+        <p id="rekord">Rekord: </p>
         <p id="rekord">0</p>
       </div>
     </div>
 <div id="postavke">
   <fieldset>
     <legend>Postavke</legend>
-    <ul>
-      <li><label for="rep">Rep: </label><select id="rep" name="">
-        <option value="1">Bijela</option>
-        <option value="2">Crvena</option>
-        <option value="3">Plava</option>
-      </select></li>
-      <li><label for="glava">Glava: </label><select id="glava" name="">
-        <option value="1">Bijela</option>
-        <option value="2">Zelena</option>
-      </select></li>
-      <li><input type="checkbox" id="rubovi"> Rubovi</li>
-      <li><input type="checkbox" id="hrana"> Više hrane</li>
-    </ul>
+    <input type="range" min="0" max="100" id="zvuk">
+    <p id="volume">0</p>
+      <ul>
+        <li><label for="rep">Rep: </label><select id="rep" name="">
+          <option value="1">Bijela</option>
+          <option value="2">Crvena</option>
+          <option value="3">Plava</option>
+        </select></li>
+        <li><label for="glava">Glava: </label><select id="glava" name="">
+          <option value="1">Bijela</option>
+          <option value="2">Zelena</option>
+        </select></li>
+        <li><input type="checkbox"  id="rubovi"> Rubovi</li>
+        <li><input type="checkbox" id="hrana"> Više hrane</li>
+      </ul>
     <p class="btn">Spremi</p>
     <p class="btn desno">Igraj</p>
   </fieldset>

@@ -1,6 +1,5 @@
 $(function(){
   $(".btn").on("click", function(){
-
     if($(this).text() === "Igraj"){
       if(postavke){
         if($("#rubovi").is(":checked"))
@@ -17,7 +16,6 @@ $(function(){
       }
       return false;
     }
-
     switch ($("#rep option:selected").text()){
       case "Plava":
         rep = [0,0,255];
@@ -52,9 +50,16 @@ $(function(){
       textSize(32);
       zvukGumb.play();
   });
+
   $("#togglePostavke").on("click",function(){
     $("#postavke").toggle("slow");
+    zvukGumb.play();
     if(!postavke)
       pocniDemo();
   });
+
+  $("#zvuk").on("input", function(){
+    $("#volume").text($("#zvuk").val());
+  });
+  $("#volume").text($("#zvuk").val());
 });

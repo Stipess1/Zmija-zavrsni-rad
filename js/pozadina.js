@@ -32,21 +32,26 @@ let glava = [255, 255, 255];
 let ihrana = [255, 0, 255];
 // Postavljamo pozadinu u div sa id "pozadina"
 let pozadina;
+let resetke = false;
+let lokalRekord = localStorage.getItem("rekord");
+let brojHrane = 4;
 // Dohvacamo elemente
 let $bodovi;
 let $rekordi
 let $togglePostavke
 
 function preload(){
-  // zvukGumb    = loadSound("zvuk/Gumb.mp3");
-  // zvukHrana   = loadSound("zvuk/Hrana.mp3");
-  // zvukKraj    = loadSound("zvuk/Kraj.mp3");
-  // zvukRekord  = loadSound("zvuk/Rekord.mp3");
-  //
-  // zvukGumb.setVolume(0.1);
-  // zvukHrana.setVolume(0.1);
-  // zvukKraj.setVolume(0.1);
-  // zvukRekord.setVolume(0.1);
+  zvukGumb    = loadSound("zvuk/Gumb.mp3");
+  zvukHrana   = loadSound("zvuk/Hrana.mp3");
+  zvukKraj    = loadSound("zvuk/Kraj.mp3");
+  zvukRekord  = loadSound("zvuk/Rekord.mp3");
+
+  zvukGumb.setVolume(0.1);
+  zvukHrana.setVolume(0.1);
+  zvukKraj.setVolume(0.1);
+  zvukRekord.setVolume(0.1);
+  if(lokalRekord === null)
+    lokalRekord = 0;
 }
 
 function setup() {
@@ -69,23 +74,42 @@ function draw() {
   } else {
     background(0);
     zmija.provjeriSmjer();
-    zmija.rubovi();
-    if(viseHrani){
-      for(let i = 0; i < Vhrane.length; i++)
-        Vhrane[i].stvoriHranu();
-    }
-    else{
-      hrana.stvoriHranu();
-    }
+    prikaziHranu();
+    polje();
+    noStroke();
     zmija.prikazi();
+    zmija.rubovi();
+    print(zmija.x + " " + zmija.y);
     zmija.smrt();
     pojediHranu();
   }
 }
 
+function polje(){
+  if(resetke){
+    for(let i = 20; i < rezolucija.sirina; i+=20){
+      stroke(50);
+      line(i, 0, i, rezolucija.visina);
+    }
+    for(let i = 20; i < rezolucija.visina; i+=20){
+      stroke(50);
+      line(0, i, rezolucija.sirina, i);
+    }
+  }
+}
+
+function prikaziHranu(){
+  if(viseHrani){
+    for(let i = 0; i < Vhrane.length; i++)
+      Vhrane[i].stvoriHranu();
+  }
+  else{
+    hrana.stvoriHranu();
+  }
+}
 function viHrane(){
   if(viseHrani){
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < brojHrane; i++){
       Vhrane[i] = new Hrana();
       Vhrane[i].novaHrana();
     }
@@ -145,6 +169,8 @@ function pojediHranu() {
         zvukHrana.play();
         if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
           $("#rekord").text(zmija.bodovi);
+          $("#rekordi").css({color: "rgb(154, 170, 26)"})
+          localStorage.setItem("rekord", zmija.bodovi);
           if(!boolRekord){
             zvukRekord.play();
             boolRekord = true;
@@ -154,13 +180,16 @@ function pojediHranu() {
     }
   }
   else{
-    if (zmija.x === hrana.x && zmija.y === hrana.y) {
+    if (zmija.x === hrana.x && zmija.y === hrana.y)
+    {
       hrana.novaHrana();
       zmija.bodovi++;
       $("#bod").text(zmija.bodovi);
       zvukHrana.play();
       if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
         $("#rekord").text(zmija.bodovi);
+        localStorage.setItem("rekord", zmija.bodovi);
+        $("#rekordi").css({color: "rgb(154, 170, 26)"})
         if(!boolRekord){
           zvukRekord.play();
           boolRekord = true;
@@ -170,6 +199,7 @@ function pojediHranu() {
   }
 }
 
+
 function pocniIgru(){
   clear();
   rezolucija = new Rezolucija(windowWidth, windowHeight);
@@ -178,7 +208,7 @@ function pocniIgru(){
   pozadina.parent("pozadina");
   viHrane();
   zmija.kraj();
-
+  $("#rekord").text(lokalRekord);
   $("#postavke").hide("slow");
   $togglePostavke.css({marginLeft: "202px"});
   $bodovi.toggle();
@@ -204,6 +234,7 @@ function pocniDemo(){
 
 function keyPressed() {
   switch (keyCode) {
+    case 68:
     case RIGHT_ARROW:
       if (postavke)
         break;
@@ -211,6 +242,7 @@ function keyPressed() {
         break;
         smjer.push([1,0]);
       break;
+    case 65:
     case LEFT_ARROW:
       if (postavke)
         break;
@@ -218,6 +250,7 @@ function keyPressed() {
         break;
         smjer.push([-1,0]);
       break;
+    case 87:
     case UP_ARROW:
       if (postavke)
         break;
@@ -225,6 +258,7 @@ function keyPressed() {
         break;
         smjer.push([0,-1]);
       break;
+    case 83:
     case DOWN_ARROW:
       if (postavke)
         break;
@@ -232,9 +266,7 @@ function keyPressed() {
         break;
         smjer.push([0,1]);
       break;
-    case 65:
-      if (postavke)
-        break;
+    case 187:
       zmija.bodovi++;
       break;
     case 70:
@@ -245,5 +277,5 @@ function keyPressed() {
       break;
 
   }
-  return false;
+
 }

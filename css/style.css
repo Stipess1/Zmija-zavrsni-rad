@@ -1,6 +1,7 @@
 body{
   background-color: rgb(235, 235, 235);
   margin: 0px;
+  font-weight: bold;
 }
 #pozadina{
   align-items: center;
@@ -19,9 +20,13 @@ p{
   display: inline-block;
   margin: 2px;
 }
+#bod{
+
+}
 #bodovi{
   float: left;
   width: 15%;
+  color: green;
 }
 #rekordi{
   float: right;
@@ -40,9 +45,15 @@ p{
   border-radius: 5px;
   padding: 5px;
 }
+#brojHrane{
+  outline: none;
+  padding: 2px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
 li{
   list-style: none;
-  margin-top: 10px;
+  margin: 0px 0px 2px 0px;
 }
 ul{
   width: 250px;

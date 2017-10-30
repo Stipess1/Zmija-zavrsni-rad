@@ -1,5 +1,10 @@
+let jacinaZvuka;
 $(function(){
+  $("#zvuk").val("10");
+  $("#volume").text($("#zvuk").val());
+
   $(".btn").on("click", function(){
+    // Gumb igraj
     if($(this).text() === "Igraj"){
       if(postavke){
         if($("#rubovi").is(":checked"))
@@ -16,6 +21,7 @@ $(function(){
       }
       return false;
     }
+    //-------------------
     switch ($("#rep option:selected").text()){
       case "Plava":
         rep = [0,0,255];
@@ -34,23 +40,38 @@ $(function(){
         glava = [0,255,0];
       break
     }
-
+    // Checkbox rubovi
     if($("#rubovi").is(":checked"))
       rubovi = true;
     else
       rubovi = false;
-
+    // Checkbox polje
+    if($("#polje").is(":checked"))
+      resetke = true;
+    else
+      resetke = false;
+    // Hrana checkbox...
     if($("#hrana").is(":checked"))
       viseHrani = true;
     else
       viseHrani = false;
 
+    let broj;
+    try{
+      broj = int($("#brojHrane").val());
+    } catch (err){
+      alert("Upisi broj! default je sad: 4");
+      broj = 4;
+    }
+    brojHrane = broj;
+    // ----------------------
       tekst = true;
       vrijeme = frameCount + 30;
       textSize(32);
       zvukGumb.play();
   });
 
+  // Toggle postavke gumb
   $("#togglePostavke").on("click",function(){
     $("#postavke").toggle("slow");
     zvukGumb.play();
@@ -58,8 +79,20 @@ $(function(){
       pocniDemo();
   });
 
+  // Zvuk slider
   $("#zvuk").on("input", function(){
     $("#volume").text($("#zvuk").val());
+    jacinaZvuka = $("#zvuk").val();
+    if(jacinaZvuka > 40)
+      $("#volume").css({color: "red"});
+    else
+      $("#volume").css({color: "black"});
+
+    jacinaZvuka = jacinaZvuka / 100;
+    zvukGumb.setVolume(jacinaZvuka);
+    zvukHrana.setVolume(jacinaZvuka);
+    zvukKraj.setVolume(jacinaZvuka);
+    zvukRekord.setVolume(jacinaZvuka);
   });
-  $("#volume").text($("#zvuk").val());
+  // -------------------
 });

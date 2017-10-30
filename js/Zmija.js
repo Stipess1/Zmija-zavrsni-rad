@@ -26,18 +26,19 @@ function Zmija(){
 
     fill(glava);
     rect(this.x, this.y, resetka, resetka);
+
   }
 
   this.rubovi = function(){
     if(!rubovi){
-      if(this.x >= width)
+      if(this.x >= rezolucija.sirina)
         this.x = 0;
-      else if(this.y >= height)
+      else if(this.y >= rezolucija.visina)
         this.y = 0;
       else if(this.x < 0)
-        this.x = width;
+        this.x = rezolucija.sirina - 20;
       else if(this.y < 0)
-        this.y = height;
+        this.y = rezolucija.visina - 20;
     }
     else {
       if(this.x >= width || this.y >= height || this.y < 0 || this.x < 0){
@@ -64,6 +65,7 @@ function Zmija(){
     this.bodovi = 0;
     this.rep = [];
     $("#bod").text(this.bodovi);
+    $("#rekordi").css({color: "black"})
     boolRekord = false;
     if(!postavke)
       zvukKraj.play();

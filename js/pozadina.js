@@ -74,10 +74,10 @@ function draw() {
   } else {
     background(0);
     zmija.provjeriSmjer();
-    prikaziHranu();
     polje();
     noStroke();
     zmija.prikazi();
+    prikaziHranu();
     zmija.rubovi();
     print(zmija.x + " " + zmija.y);
     zmija.smrt();

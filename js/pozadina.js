@@ -76,13 +76,12 @@ function draw() {
     zmija.provjeriSmjer();
     polje();
     noStroke();
-    zmija.prikazi();
-    
     prikaziHranu();
-    zmija.rubovi();
-    print(zmija.x + " " + zmija.y);
-    zmija.smrt();
+    zmija.prikazi();
     pojediHranu();
+    zmija.rubovi();
+    zmija.smrt();
+
   }
 }
 
@@ -108,11 +107,29 @@ function prikaziHranu(){
     hrana.stvoriHranu();
   }
 }
+
 function viHrane(){
   if(viseHrani){
     for(let i = 0; i < brojHrane; i++){
       Vhrane[i] = new Hrana();
       Vhrane[i].novaHrana();
+      if(Vhrane[i].x === zmija.x && Vhrane[i].y === zmija.y)
+        Vhrane[i].novaHrana();
+    }
+    let check = false;
+    for(let i = 0; i < brojHrane-1; i++){
+      for(let j = 1; j < brojHrane-1; j++){
+        if(i != j){
+          if(Vhrane[i].x === Vhrane[j].x && Vhrane[i].y === Vhrane[j].y){
+            check = true;
+            while(check){
+              Vhrane[i].novaHrana();
+              if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y)
+                check = false;
+            }
+          }
+        }
+      }
     }
   }
   else
@@ -164,8 +181,23 @@ function pojediHranu() {
   if(viseHrani){
     for(let i = 0; i < Vhrane.length; i++){
       if(zmija.x === Vhrane[i].x && zmija.y === Vhrane[i].y){
-        zmija.bodovi++;
         Vhrane[i].novaHrana();
+        let check = false;
+        for(let k = 0; k < brojHrane-1; k++){
+          for(let j = 1; j < brojHrane-1; j++){
+            if(k != j){
+              if(Vhrane[k].x === Vhrane[j].x && Vhrane[k].y === Vhrane[j].y){
+                check = true;
+                while(check){
+                  Vhrane[k].novaHrana();
+                  if(Vhrane[k].x != Vhrane[j].x && Vhrane[k].y != Vhrane[j].y)
+                    check = false;
+                }
+              }
+            }
+          }
+        }
+        zmija.bodovi++;
         $("#bod").text(zmija.bodovi);
         zvukHrana.play();
         if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
@@ -207,8 +239,8 @@ function pocniIgru(){
   rezolucija.provjeriRezoluciju();
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
-  viHrane();
   zmija.kraj();
+  viHrane();
   $("#rekord").text(lokalRekord);
   $("#postavke").hide("slow");
   $togglePostavke.css({marginLeft: "202px"});
@@ -225,6 +257,7 @@ function pocniDemo(){
   hrana = new Hrana();
   zmija = new Zmija();
   postaviDemo();
+  Vhrane = [];
   postavke = true;
 
   $("#postavke").show("slow");
@@ -266,9 +299,6 @@ function keyPressed() {
       if (zmija.rep[0] != null && zmija.ybrzina == -1)
         break;
         smjer.push([0,1]);
-      break;
-    case 187:
-      zmija.bodovi++;
       break;
     case 70:
       if (postavke)

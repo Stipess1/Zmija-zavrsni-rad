@@ -14,15 +14,9 @@ function Hrana(){
     this.x = floor(random(stupac)) * resetka;
     this.y = floor(random(redak))  * resetka;
 
-    /*
-      Zna se desit kada je zmija velika da se hrana stvori na repu
-      pomocu for petlje gledamo jel se hrana stvorila na repu ako je
-      zovi opet novaHrana()
-    */
-    for(let i = 0; i < zmija.rep.length; i++){
-      let pos = zmija.rep[i];
-      if(pos.x === this.x && pos.y === this.y)
-        this.novaHrana();
+    
+    if(zmija.x === this.x && zmija.y === this.y){
+      this.novaHrana();
     }
   }
 }

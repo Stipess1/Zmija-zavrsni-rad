@@ -14,11 +14,10 @@ function Zmija(){
       }
     }
     this.rep[this.bodovi-1] = createVector(this.x, this.y);
-
     for(let i = 0; i < this.rep.length; i++){
       let pos = this.rep[i];
       fill(rep);
-      rect(this.rep[i].x, this.rep[i].y, resetka, resetka);
+        rect(this.rep[i].x, this.rep[i].y, resetka, resetka);
     }
 
     this.x += this.xbrzina * resetka;

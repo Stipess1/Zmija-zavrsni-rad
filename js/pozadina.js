@@ -74,9 +74,9 @@ function draw() {
   } else {
     background(0);
     zmija.provjeriSmjer();
-    prikaziHranu();
     polje();
     noStroke();
+    prikaziHranu();
     zmija.prikazi();
     zmija.rubovi();
     print(zmija.x + " " + zmija.y);

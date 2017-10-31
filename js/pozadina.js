@@ -72,8 +72,9 @@ function draw() {
     if (tekst)
       pokaziTekst();
   } else {
+    if(zmija.x.brzina != 0)
+      zmija.provjeriSmjer();
     background(0);
-    zmija.provjeriSmjer();
     polje();
     noStroke();
     prikaziHranu();
@@ -183,16 +184,14 @@ function pojediHranu() {
       if(zmija.x === Vhrane[i].x && zmija.y === Vhrane[i].y){
         Vhrane[i].novaHrana();
         let check = false;
-        for(let k = 0; k < brojHrane-1; k++){
-          for(let j = 1; j < brojHrane-1; j++){
-            if(k != j){
-              if(Vhrane[k].x === Vhrane[j].x && Vhrane[k].y === Vhrane[j].y){
-                check = true;
-                while(check){
-                  Vhrane[k].novaHrana();
-                  if(Vhrane[k].x != Vhrane[j].x && Vhrane[k].y != Vhrane[j].y)
-                    check = false;
-                }
+        for(let j = 0; j < Vhrane.length; j++){
+          if(i != j){
+            if(Vhrane[j].x == Vhrane[i].x && Vhrane[j].y == Vhrane[i].y){
+              check = true;
+              while(check){
+                Vhrane[i].novaHrana();
+                if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y)
+                  check = false;
               }
             }
           }
@@ -241,7 +240,7 @@ function pocniIgru(){
   pozadina.parent("pozadina");
   zmija.kraj();
   viHrane();
-  $("#rekord").text(lokalRekord);
+  $("#rekord").text(localStorage.getItem("rekord"));
   $("#postavke").hide("slow");
   $togglePostavke.css({marginLeft: "202px"});
   $bodovi.toggle();
@@ -272,15 +271,11 @@ function keyPressed() {
     case RIGHT_ARROW:
       if (postavke)
         break;
-      if (zmija.rep[0] != null && zmija.xbrzina == -1)
-        break;
         smjer.push([1,0]);
       break;
     case 65:
     case LEFT_ARROW:
       if (postavke)
-        break;
-      if (zmija.rep[0] != null && zmija.xbrzina == 1)
         break;
         smjer.push([-1,0]);
       break;
@@ -288,19 +283,15 @@ function keyPressed() {
     case UP_ARROW:
       if (postavke)
         break;
-      if (zmija.rep[0] != null && zmija.ybrzina == 1)
-        break;
         smjer.push([0,-1]);
       break;
     case 83:
     case DOWN_ARROW:
       if (postavke)
         break;
-      if (zmija.rep[0] != null && zmija.ybrzina == -1)
-        break;
         smjer.push([0,1]);
       break;
-    case 70:
+    case 80:
       if (postavke)
         pocniIgru();
        else

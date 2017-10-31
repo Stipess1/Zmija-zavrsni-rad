@@ -2,6 +2,7 @@ body{
   background-color: rgb(235, 235, 235);
   margin: 0px;
   font-weight: bold;
+  user-select: none;
 }
 #pozadina{
   align-items: center;
@@ -43,13 +44,14 @@ p{
   color: rgb(130, 69, 223);
   border: 2px solid rgb(130, 69, 223);
   border-radius: 5px;
-  padding: 5px;
+  padding: 3px;
 }
 #brojHrane{
   outline: none;
   padding: 2px;
+  border: 2px solid red;
   border-radius: 3px;
-  border: 1px solid black;
+  width: 25px;
 }
 li{
   list-style: none;
@@ -59,22 +61,17 @@ ul{
   width: 250px;
   margin-right: 0px;
 }
-#rep{
-  /*margin-left: 22px;*/
-}
 #glava{
   margin-left: 10px
 }
-.btn{
+.ljevo{
   float: left;
+}
+.btn{
   color: rgb(130, 69, 223);
   border: 2px solid rgb(130, 69, 223);
   border-radius: 5px;
   padding: 3px;
-}
-#zvuk{
-  float: right;
-
 }
 #volume{
   float: right;
@@ -91,8 +88,17 @@ ul{
 .desno{
   float: right;
 }
-#slider{
-  float: right;
+.gumb{
+  color: rgb(39, 154, 196);
+  border: 2px solid rgb(39, 154, 196);
+  border-radius: 5px;
+  padding: 3px;
+}
+.gumb:hover{
+  background-color: rgb(39, 154, 196);
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
 }
 #togglePostavke:hover{
   transition-duration: 0.2s;
@@ -103,9 +109,45 @@ ul{
 #togglePostavke:active{
   background-color: rgb(166, 75, 149);
 }
+/*-------- Gumbovi lista --------*/
+.iskljuceno{
+  border: 2px solid red;
+  color: red;
+  border-radius: 5px;
+  padding: 3px;
+}
+.iskljuceno:hover{
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+.iskljuceno:active{
+  background-color: rgb(171, 35, 17);
+}
+.ukljuceno{
+  border: 2px solid green;
+  color: green;
+  border-radius: 5px;
+  padding: 3px;
+}
+.ukljuceno:hover{
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+.ukljuceno:active{
+    background-color: rgb(15, 185, 16);
+}
+/*-------- Gumbovi lista --------*/
 fieldset{
   margin: 0px;
-  border: 1px solid rgb(130, 69, 223);
+  border: 2px solid rgb(130, 69, 223);
+  border-radius: 4px;
+}
+fieldset:hover{
+  border: 2px solid rgb(39, 154, 196);
 }
 option{
   background-color: rgb(235, 235, 235);

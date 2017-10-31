@@ -1,5 +1,7 @@
 let jacinaZvuka;
+
 $(function(){
+  $("#brojHrane").hide();
   $("#zvuk").val("10");
   $("#volume").text($("#zvuk").val());
 
@@ -7,15 +9,6 @@ $(function(){
     // Gumb igraj
     if($(this).text() === "Igraj"){
       if(postavke){
-        if($("#rubovi").is(":checked"))
-          rubovi = true;
-        else
-          rubovi = false;
-
-        if($("#hrana").is(":checked"))
-          viseHrani = true;
-        else
-          viseHrani = false;
         pocniIgru();
         zvukGumb.play();
       }
@@ -40,29 +33,16 @@ $(function(){
         glava = [0,255,0];
       break
     }
-    // Checkbox rubovi
-    if($("#rubovi").is(":checked"))
-      rubovi = true;
-    else
-      rubovi = false;
-    // Checkbox polje
-    if($("#polje").is(":checked"))
-      resetke = true;
-    else
-      resetke = false;
     // Hrana checkbox...
-    if($("#hrana").is(":checked"))
-      viseHrani = true;
-    else
-      viseHrani = false;
 
     let broj;
-    try{
-      broj = int($("#brojHrane").val());
-    } catch (err){
-      alert("Upisi broj! default je sad: 4");
+    if(parseInt($("#brojHrane").val()) === null){
+      alert("Upisi broj! default je 4");
       broj = 4;
+    } else {
+      broj = $("#brojHrane").val();
     }
+    print(broj);
     brojHrane = broj;
     // ----------------------
       tekst = true;
@@ -95,4 +75,58 @@ $(function(){
     zvukRekord.setVolume(jacinaZvuka);
   });
   // -------------------
+
+  // Gumb rubovi
+  $("#rubovi").on("click", function(){
+    if(rubovi){
+      $("#rubovi").removeClass("ukljuceno").addClass("iskljuceno");
+      rubovi = false;
+    }
+    else {
+      $("#rubovi").removeClass("iskljuceno").addClass("ukljuceno");
+      rubovi = true;
+    }
+    zvukGumb.play();
+  });
+// ----------------
+// Gumb polje
+  $("#polje").on("click", function(){
+    if(resetke) {
+      $("#polje").removeClass("ukljuceno").addClass("iskljuceno");
+      resetke = false;
+    }else {
+      $("#polje").removeClass("iskljuceno").addClass("ukljuceno");
+      resetke = true;
+    }
+    zvukGumb.play();
+  });
+// ---------------
+// Hrana gumb
+  $("#hrana").on("click", function(){
+    if(viseHrani){
+      $("#hrana").removeClass("ukljuceno").addClass("iskljuceno");
+      $("#brojHrane").css({border: "2px solid red"});
+      $("#brojHrane").hide("slow");
+      viseHrani = false;
+    } else {
+      $("#hrana").removeClass("iskljuceno").addClass("ukljuceno");
+      $("#brojHrane").show("slow");
+      $("#brojHrane").css({border: "2px solid green"});
+      viseHrani = true;
+      print(viseHrani);
+    }
+    zvukGumb.play();
+  });
+// ---------------
+  $("#brojHrane").on("focusout", function(){
+    let broj;
+    if(parseInt($("#brojHrane").val()) === null){
+      alert("Upisi broj! default je 4");
+      broj = 4;
+    } else {
+      broj = $("#brojHrane").val();
+    }
+    print(broj);
+    brojHrane = broj;
+  });
 });

@@ -49,8 +49,10 @@ function Zmija(){
   this.provjeriSmjer = function(){
     if(smjer.length){
       let razdjeli = smjer[0].toString().split(",");
-      this.xbrzina = parseInt(razdjeli[0]);
-      this.ybrzina = parseInt(razdjeli[1]);
+      if(this.xbrzina !== razdjeli[0]*-1 && this.ybrzina !== razdjeli[1]*-1 || this.rep[0] == null){
+        this.xbrzina = parseInt(razdjeli[0]);
+        this.ybrzina = parseInt(razdjeli[1]);
+      }
       smjer.shift();
     }
   }
@@ -60,7 +62,7 @@ function Zmija(){
     this.x = 60;
     this.y = 60;
     this.ybrzina = 0;
-    this.xbrzina = 0;
+    this.xbrzina = 1;
     this.bodovi = 0;
     this.rep = [];
     $("#bod").text(this.bodovi);

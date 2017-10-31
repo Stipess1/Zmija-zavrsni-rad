@@ -23,7 +23,7 @@
         <p>Bodovi: </p>
         <p id="bod">0</p>
       </div>
-      <p id="togglePostavke">Postavke</p>
+      <p id="togglePostavke" >Postavke</p>
       <div id="rekordi">
         <p>Rekord: </p>
         <p id="rekord">0</p>
@@ -32,7 +32,7 @@
 <div id="postavke">
   <fieldset>
     <legend>Postavke</legend>
-    <input type="range" min="0" max="100" id="zvuk">
+    <input type="range" min="0" max="100" id="zvuk" class="desno">
     <p id="volume">0</p>
       <ul>
         <li><label for="rep">Rep: </label><select id="rep" name="">
@@ -44,13 +44,15 @@
           <option value="1">Bijela</option>
           <option value="2">Zelena</option>
         </select></li>
-        <li><input type="checkbox"  id="rubovi"> Rubovi</li>
-        <li><input type="checkbox" id="hrana"> Više hrane <input type="text" id="brojHrane" value="4" placeholder="Broj hrane..."></li>
-        <li><input type="checkbox" id="polje"> Polje</li>
+        <li><p class="iskljuceno" id="rubovi">Rubovi</p></li>
+        <li><p class="iskljuceno" id="hrana">Više hrane</p><input type="text" id="brojHrane" maxlength="2" value="4" placeholder="Broj"></li>
+        <li><p class="iskljuceno" id="polje">Polje</p></li>
       </ul>
-    <p class="btn">Spremi</p>
+    <p class="btn ljevo">Spremi</p>
     <p class="btn desno">Igraj</p>
+
   </fieldset>
+
 </div>
   </body>
 </html>

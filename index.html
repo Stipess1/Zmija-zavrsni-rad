@@ -4,13 +4,11 @@
     <meta charset="utf-8">
     <title>Zmija</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="icon" href="icon.png">
   </head>
   <body>
     <script src="libraries/p5/p5.js" charset="utf-8"></script>
     <script src="libraries/jquery/jquery.js" charset="utf-8"></script>
-    <script src="libraries/jquery/jquery-ui.js" charset="utf-8"></script>
     <script src="libraries/p5/addons/p5.sound.js" charset="utf-8"></script>
     <script src="js/pozadina.js" charset="utf-8"></script>
     <script src="js/Zmija.js" charset="utf-8"></script>
@@ -32,8 +30,12 @@
 <div id="postavke">
   <fieldset>
     <legend>Postavke</legend>
-    <input type="range" min="0" max="100" id="zvuk" class="desno">
-    <p id="volume">0</p>
+    <p id="Pzvuk">Zvuk</p>
+    <ul class="desno">
+      <li><p id="volume">0</p></li>
+      <li><input type="range" min="0" max="100" id="zvuk" class="desno"></li>
+      <!--<li><p class="desno iskljuceno" id="Pmultiplayer">Multiplayer</p></li>-->
+    </ul>
       <ul>
         <li><label for="rep">Rep: </label><select id="rep" name="">
           <option value="1">Bijela</option>
@@ -48,11 +50,9 @@
         <li><p class="iskljuceno" id="hrana">Više hrane</p><input type="text" id="brojHrane" maxlength="2" value="4" placeholder="Broj"></li>
         <li><p class="iskljuceno" id="polje">Polje</p></li>
       </ul>
-    <p class="btn ljevo">Spremi</p>
-    <p class="btn desno">Igraj</p>
-
+      <hr>
+    <p class="btn ljevo">Igraj</p>
   </fieldset>
-
 </div>
   </body>
 </html>

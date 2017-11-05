@@ -57,14 +57,27 @@ function Zmija(){
     }
   }
 
+  this.brzina = function(bodovi){
+    if(bodovi == 20)
+      frameRate(18);
+    else if (bodovi == 60)
+      frameRate(22);
+    else if (bodovi == 100)
+      frameRate(25);
+    else if (bodovi == 160)
+      frameRate(28);
+    else if (bodovi == 200)
+      frameRate(35);
+  }
+
   this.kraj = function(){
-    //print(this.x + " " + this.y);
     this.x = 60;
     this.y = 60;
     this.ybrzina = 0;
     this.xbrzina = 1;
     this.bodovi = 0;
     this.rep = [];
+    frameRate(15);
     $("#bod").text(this.bodovi);
     $("#rekordi").css({color: "black"})
     boolRekord = false;

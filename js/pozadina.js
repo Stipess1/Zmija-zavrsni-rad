@@ -12,9 +12,6 @@ let viseHrani = false;
 */
 let frame = 15;
 let smjer = [];
-// Crtanje teksta
-let tekst = false;
-let vrijeme;
 // Zvukovi
 let zvukHrana;
 let zvukKraj;
@@ -55,10 +52,11 @@ function preload(){
 }
 
 function setup() {
-  rezolucija = new Rezolucija(windowWidth, windowHeight);
-  $bodovi = $("#bodovi");
-  $rekordi = $("#rekordi");
+  rezolucija      = new Rezolucija(windowWidth, windowHeight);
+  $bodovi         = $("#bodovi");
+  $rekordi        = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
+
   noStroke();
   pocniDemo();
 }
@@ -69,18 +67,15 @@ function draw() {
     skreni();
     hrana.stvoriHranu();
     zmija.prikazi();
-    if (tekst)
-      pokaziTekst();
   } else {
-    if(zmija.x.brzina != 0)
-      zmija.provjeriSmjer();
+    zmija.provjeriSmjer();
     background(0);
     polje();
     noStroke();
     prikaziHranu();
     zmija.prikazi();
-    pojediHranu();
     zmija.rubovi();
+    pojediHranu();
     zmija.smrt();
 
   }
@@ -137,22 +132,6 @@ function viHrane(){
     hrana.novaHrana();
 }
 
-function pokaziTekst() {
-  fill(130, 69, 223);
-  text("Spremljeno", (width / 2) - 70, height / 2);
-  if (vrijeme > frameCount) {
-    tekst = true;
-  } else {
-    tekst = false;
-  }
-}
-
-function postaviDemo() {
-  zmija.xbrzina = 1;
-  zmija.x = 20;
-  zmija.y = 20;
-}
-// width: 600, height: 500
 function skreni() {
   if (zmija.x === width - 40 && zmija.y === height - (height - 20)) {
     if (zmija.bodovi < 6)
@@ -190,13 +169,16 @@ function pojediHranu() {
               check = true;
               while(check){
                 Vhrane[i].novaHrana();
-                if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y)
+                if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y){
                   check = false;
+                }
+
               }
             }
           }
         }
         zmija.bodovi++;
+        zmija.brzina(zmija.bodovi);
         $("#bod").text(zmija.bodovi);
         zvukHrana.play();
         if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
@@ -216,6 +198,7 @@ function pojediHranu() {
     {
       hrana.novaHrana();
       zmija.bodovi++;
+      zmija.brzina(zmija.bodovi);
       $("#bod").text(zmija.bodovi);
       zvukHrana.play();
       if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
@@ -234,7 +217,6 @@ function pojediHranu() {
 
 function pocniIgru(){
   clear();
-  rezolucija = new Rezolucija(windowWidth, windowHeight);
   rezolucija.provjeriRezoluciju();
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
@@ -250,7 +232,6 @@ function pocniIgru(){
 function pocniDemo(){
   clear();
   frameRate(frame);
-  resetka = 20;
   pozadina = createCanvas(600, 500);
   pozadina.parent("pozadina");
   hrana = new Hrana();
@@ -263,6 +244,12 @@ function pocniDemo(){
   $togglePostavke.css({ marginLeft: "310px" });
   $bodovi.toggle();
   $rekordi.toggle();
+}
+
+function postaviDemo() {
+  zmija.xbrzina = 1;
+  zmija.x = 20;
+  zmija.y = 20;
 }
 
 function keyPressed() {

@@ -11,12 +11,15 @@ function Hrana(){
     let stupac = rezolucija.sirina / resetka;
     let redak  = rezolucija.visina / resetka;
 
-    this.x = floor(random(stupac)) * resetka;
-    this.y = floor(random(redak))  * resetka;
+    let matStupac = floor(random(stupac)) * resetka;
+    let matRedak  = floor(random(redak))  * resetka;
 
-    
-    if(zmija.x === this.x && zmija.y === this.y){
+    if(zmija.x === matStupac && zmija.y === matRedak){
       this.novaHrana();
     }
+
+    this.x = matStupac;
+    this.y = matRedak;
+
   }
 }

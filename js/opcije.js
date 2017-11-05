@@ -7,14 +7,11 @@ $(function(){
 
   $(".btn").on("click", function(){
     // Gumb igraj
-    if($(this).text() === "Igraj"){
-      if(postavke){
-        pocniIgru();
-        zvukGumb.play();
-      }
-      return false;
-    }
-    //-------------------
+      pocniIgru();
+      zvukGumb.play();
+  });
+
+  $("#rep").on("change", function(){
     switch ($("#rep option:selected").text()){
       case "Plava":
         rep = [0,0,255];
@@ -25,6 +22,9 @@ $(function(){
       case "Crvena":
         rep = [255,0,0];
     }
+  });
+
+  $("#glava").on("change", function(){
     switch ($("#glava option:selected").text()) {
       case "Bijela":
         glava = [255,255,255];
@@ -33,22 +33,6 @@ $(function(){
         glava = [0,255,0];
       break
     }
-    // Hrana checkbox...
-
-    let broj;
-    if(parseInt($("#brojHrane").val()) === null){
-      alert("Upisi broj! default je 4");
-      broj = 4;
-    } else {
-      broj = $("#brojHrane").val();
-    }
-    print(broj);
-    brojHrane = broj;
-    // ----------------------
-      tekst = true;
-      vrijeme = frameCount + 30;
-      textSize(32);
-      zvukGumb.play();
   });
 
   // Toggle postavke gumb
@@ -73,6 +57,13 @@ $(function(){
     zvukHrana.setVolume(jacinaZvuka);
     zvukKraj.setVolume(jacinaZvuka);
     zvukRekord.setVolume(jacinaZvuka);
+  });
+
+  $("#zvuk").on("change", function(){
+    zvukGumb.play();
+  });
+  $("#zvuk").on("click", function(){
+    zvukGumb.play();
   });
   // -------------------
 
@@ -113,7 +104,6 @@ $(function(){
       $("#brojHrane").show("slow");
       $("#brojHrane").css({border: "2px solid green"});
       viseHrani = true;
-      print(viseHrani);
     }
     zvukGumb.play();
   });

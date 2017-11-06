@@ -6,8 +6,9 @@ function Zmija(){
   this.ybrzina = 0;
   this.bodovi = 0;
   this.rep = [];
+  this.smjer = [];
 
-  this.prikazi = function(){
+  this.prikazi = function(bool){
     if(this.rep.length === this.bodovi){
       for(let i = 0; i < this.rep.length; i++){
         this.rep[i] = this.rep[i+1];
@@ -16,16 +17,22 @@ function Zmija(){
     this.rep[this.bodovi-1] = createVector(this.x, this.y);
     for(let i = 0; i < this.rep.length; i++){
       let pos = this.rep[i];
-      fill(rep);
+      if(bool)
+        fill(rep);
+      else
+        fill(255);
         rect(this.rep[i].x, this.rep[i].y, resetka, resetka);
     }
 
     this.x += this.xbrzina * resetka;
     this.y += this.ybrzina * resetka;
 
-    fill(glava);
+    if(bool){
+      fill(glava);
+    } else {
+      fill(255);
+    }
     rect(this.x, this.y, resetka, resetka);
-
   }
 
   this.rubovi = function(){
@@ -47,13 +54,13 @@ function Zmija(){
   }
 
   this.provjeriSmjer = function(){
-    if(smjer.length){
-      let razdjeli = smjer[0].toString().split(",");
+    if(this.smjer.length){
+      let razdjeli = this.smjer[0].toString().split(",");
       if(this.xbrzina !== razdjeli[0]*-1 && this.ybrzina !== razdjeli[1]*-1 || this.rep[0] == null){
         this.xbrzina = parseInt(razdjeli[0]);
         this.ybrzina = parseInt(razdjeli[1]);
       }
-      smjer.shift();
+      this.smjer.shift();
     }
   }
 
@@ -71,6 +78,7 @@ function Zmija(){
   }
 
   this.kraj = function(){
+
     this.x = 60;
     this.y = 60;
     this.ybrzina = 0;

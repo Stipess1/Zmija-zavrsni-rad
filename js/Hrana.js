@@ -17,6 +17,11 @@ function Hrana(){
     if(zmija.x === matStupac && zmija.y === matRedak){
       this.novaHrana();
     }
+    if(multiplayer){
+      if(zmija2.x == matStupac && zmija2.y == matRedak){
+        this.novaHrana();
+      }
+    }
 
     this.x = matStupac;
     this.y = matRedak;

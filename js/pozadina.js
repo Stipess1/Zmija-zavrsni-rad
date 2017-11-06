@@ -1,17 +1,19 @@
 // (zmija i hrana) varijable koje se referiraju svojim objketima
 let zmija;
+let zmija2;
 let hrana;
 let rezolucija;
 let Vhrane = [];
 // (rubovi) ako je false zmija se ne resetira kada uradi rub
 let rubovi = false;
 let viseHrani = false;
+let multiplayer = false;
+let zmije = [];
 /*
   kada igrac stisne dvije tipke u istom trenutku
   zna se desit da zmija pojede samu sebe
 */
 let frame = 15;
-let smjer = [];
 // Zvukovi
 let zvukHrana;
 let zvukKraj;
@@ -56,7 +58,10 @@ function setup() {
   $bodovi         = $("#bodovi");
   $rekordi        = $("#rekordi");
   $togglePostavke = $("#togglePostavke");
-
+  $prvi           = $(".prvi");
+  $drugi          = $(".drugi");
+  $prviIgrac      = $(".prviIgrac");
+  $drugiIgrac     = $(".drugiIgrac");
   noStroke();
   pocniDemo();
 }
@@ -66,18 +71,25 @@ function draw() {
     background(0);
     skreni();
     hrana.stvoriHranu();
-    zmija.prikazi();
+    zmija.prikazi(true);
   } else {
     zmija.provjeriSmjer();
     background(0);
+    prikaziHranu();
+    if(multiplayer){
+      zmija2.provjeriSmjer();
+      noStroke();
+      zmija2.prikazi(false);
+      zmija2.rubovi();
+      zmija2.smrt();
+    }
     polje();
     noStroke();
-    prikaziHranu();
-    zmija.prikazi();
+    zmija.prikazi(true);
     zmija.rubovi();
     pojediHranu();
     zmija.smrt();
-
+    dvaIgraca();
   }
 }
 
@@ -157,7 +169,36 @@ function skreni() {
   }
 }
 
-function pojediHranu() {
+function dvaIgraca(){
+  if(multiplayer){
+    if(zmija.x == zmija2.x && zmija.y == zmija2.y){
+      if(zmija.rep.length > zmija2.rep.length){
+        zmija2.kraj();
+      } else if(zmija.rep.length == zmija2.rep.length){
+        pocniDemo();
+      } else{
+        zmija.kraj();
+      }
+      return true;
+    }
+    for(let i = 0; i < zmija.rep.length; i++){
+      if(zmija2.x == zmija.rep[i].x && zmija2.y == zmija.rep[i].y){
+        zmija2.kraj();
+        $drugiIgrac.text(0);
+        zvukKraj.play();
+      }
+    }
+    for(let i = 0; i < zmija2.rep.length; i++){
+      if(zmija.x == zmija2.rep[i].x && zmija.y == zmija2.rep[i].y){
+        zmija.kraj();
+        $prviIgrac.text(0);
+        zvukKraj.play();
+      }
+    }
+  }
+}
+
+function pojediHranu(){
   if(viseHrani){
     for(let i = 0; i < Vhrane.length; i++){
       if(zmija.x === Vhrane[i].x && zmija.y === Vhrane[i].y){
@@ -172,22 +213,48 @@ function pojediHranu() {
                 if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y){
                   check = false;
                 }
-
               }
             }
           }
         }
         zmija.bodovi++;
-        zmija.brzina(zmija.bodovi);
-        $("#bod").text(zmija.bodovi);
         zvukHrana.play();
-        if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
-          $("#rekord").text(zmija.bodovi);
-          $("#rekordi").css({color: "rgb(154, 170, 26)"})
-          localStorage.setItem("rekord", zmija.bodovi);
-          if(!boolRekord){
-            zvukRekord.play();
-            boolRekord = true;
+        if(!multiplayer){
+          zmija.brzina(zmija.bodovi);
+          $("#bod").text(this.bodovi);
+          if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
+            $("#rekord").text(this.bodovi);
+            $("#rekordi").css({color: "rgb(154, 170, 26)"})
+            localStorage.setItem("rekord", this.bodovi);
+            if(!boolRekord){
+              zvukRekord.play();
+              boolRekord = true;
+            }
+          }
+        } else {
+          $prviIgrac.text(zmija.bodovi);
+        }
+      } else if (multiplayer) {
+        for(let i = 0; i < Vhrane.length; i++){
+          if(zmija2.x == Vhrane[i].x && zmija2.y == Vhrane[i].y){
+          Vhrane[i].novaHrana();
+          let check = false;
+            for(let j = 0; j < Vhrane.length; j++){
+              if(i != j){
+                if(Vhrane[j].x == Vhrane[i].x && Vhrane[j].y == Vhrane[i].y){
+                  check = true;
+                  while(check){
+                    Vhrane[i].novaHrana();
+                    if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y){
+                      check = false;
+                    }
+                  }
+                }
+              }
+            }
+            zmija2.bodovi++;
+            zvukHrana.play();
+            $drugiIgrac.text(zmija2.bodovi);
           }
         }
       }
@@ -199,21 +266,31 @@ function pojediHranu() {
       hrana.novaHrana();
       zmija.bodovi++;
       zmija.brzina(zmija.bodovi);
-      $("#bod").text(zmija.bodovi);
       zvukHrana.play();
-      if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
-        $("#rekord").text(zmija.bodovi);
-        localStorage.setItem("rekord", zmija.bodovi);
-        $("#rekordi").css({color: "rgb(154, 170, 26)"})
-        if(!boolRekord){
-          zvukRekord.play();
-          boolRekord = true;
+      if(!multiplayer){
+        $("#bod").text(zmija.bodovi);
+        if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
+          $("#rekord").text(zmija.bodovi);
+          $("#rekordi").css({color: "rgb(154, 170, 26)"})
+          localStorage.setItem("rekord", zmija.bodovi);
+          if(!boolRekord){
+            zvukRekord.play();
+            boolRekord = true;
+          }
         }
+      } else {
+        $prviIgrac.text(zmija.bodovi);
+      }
+    } else if(multiplayer){
+      if(zmija2.x == hrana.x && zmija2.y == hrana.y){
+        hrana.novaHrana();
+        zmija2.bodovi++;
+        $drugiIgrac.text(zmija2.bodovi);
+        zvukHrana.play();
       }
     }
   }
 }
-
 
 function pocniIgru(){
   clear();
@@ -222,11 +299,24 @@ function pocniIgru(){
   pozadina.parent("pozadina");
   zmija.kraj();
   viHrane();
-  $("#rekord").text(localStorage.getItem("rekord"));
+  if(!multiplayer)
+    $("#rekord").text(localStorage.getItem("rekord"));
+
   $("#postavke").hide("slow");
   $togglePostavke.css({marginLeft: "202px"});
-  $bodovi.toggle();
-  $rekordi.toggle();
+
+  if(multiplayer)
+  {
+    zmija2 = new Zmija();
+    zmija2.x = 120;
+    zmija2.y = 120;
+    zmija2.xbrzina = 1;
+    $prvi.show();
+    $drugi.show();
+  } else {
+    $bodovi.show();
+    $rekordi.show();
+  }
 }
 
 function pocniDemo(){
@@ -242,8 +332,10 @@ function pocniDemo(){
 
   $("#postavke").show("slow");
   $togglePostavke.css({ marginLeft: "310px" });
-  $bodovi.toggle();
-  $rekordi.toggle();
+  $bodovi.hide();
+  $rekordi.hide();
+  $prvi.hide();
+  $drugi.hide();
 }
 
 function postaviDemo() {
@@ -255,28 +347,36 @@ function postaviDemo() {
 function keyPressed() {
   switch (keyCode) {
     case 68:
+      zmija2.smjer.push([1,0]);
+      break;
     case RIGHT_ARROW:
       if (postavke)
         break;
-        smjer.push([1,0]);
+        zmija.smjer.push([1,0]);
       break;
     case 65:
+      zmija2.smjer.push([-1,0]);
+      break;
     case LEFT_ARROW:
       if (postavke)
         break;
-        smjer.push([-1,0]);
+        zmija.smjer.push([-1,0]);
       break;
     case 87:
+      zmija2.smjer.push([0,-1]);
+      break;
     case UP_ARROW:
       if (postavke)
         break;
-        smjer.push([0,-1]);
+        zmija.smjer.push([0,-1]);
       break;
     case 83:
+      zmija2.smjer.push([0,1]);
+      break;
     case DOWN_ARROW:
       if (postavke)
         break;
-        smjer.push([0,1]);
+        zmija.smjer.push([0,1]);
       break;
     case 80:
       if (postavke)

@@ -2,6 +2,8 @@ let jacinaZvuka;
 
 $(function(){
   $("#brojHrane").hide();
+  $(".prvi").hide();
+  $(".drugi").hide();
   $("#zvuk").val("10");
   $("#volume").text($("#zvuk").val());
 
@@ -118,5 +120,15 @@ $(function(){
     }
     print(broj);
     brojHrane = broj;
+  });
+
+  $("#Pmultiplayer").on("click", function(){
+    if(multiplayer){
+      $("#Pmultiplayer").removeClass("ukljuceno").addClass("iskljuceno");
+      multiplayer = false;
+    } else {
+      $("#Pmultiplayer").removeClass("iskljuceno").addClass("ukljuceno");
+      multiplayer = true;
+    }
   });
 });

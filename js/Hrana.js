@@ -1,6 +1,6 @@
 function Hrana(){
-  this.x = 300;
-  this.y = 250;
+  this.x = rezolucija.sirina / 2;
+  this.y = rezolucija.visina / 2;
 
   this.stvoriHranu = function(){
     fill(ihrana);

@@ -1,7 +1,8 @@
 body{
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(32, 32, 32);
   margin: 0px;
   font-weight: bold;
+  color: white;
   user-select: none;
 }
 .ljevo{
@@ -15,8 +16,8 @@ body{
 /*-------- Gumb Igraj --------*/
 .btn{
   color: white;
-  background-color: green;
-  border: 2px solid green;
+  background-color: rgb(99, 99, 99);
+  border: 2px solid rgb(99, 99, 99);
   border-radius: 5px;
   padding: 3px;
 }
@@ -24,6 +25,7 @@ body{
   transition-duration: 0.2s;
   color: white;
   background-color: darkGreen;
+  border: 2px solid darkGreen;
   cursor: pointer;
 }
 .btn:active{
@@ -33,39 +35,40 @@ body{
 /*-------- Gumbovi lista --------*/
 .iskljuceno{
   transition-duration: 0.5s;
-  border: 2px solid red;
+  border: 2px solid rgb(99, 99, 99);
   color: white;
-  background-color: red;
+  background-color: rgb(99, 99, 99);
   border-radius: 5px;
   padding: 3px;
 }
 .iskljuceno:hover{
-  background-color: crimson;
+  background-color: rgb(135, 135, 135);
   color: white;
   cursor: pointer;
   transition-duration: 0.8s;
-  border: 2px solid crimson;
+  border: 2px solid rgb(135, 135, 135);
 }
 .iskljuceno:active{
-  background-color: darkRed;
+  background-color: rgb(175, 175, 175);;
 }
 .ukljuceno{
   transition-duration: 0.5s;
-  border: 2px solid green;
+  border: 2px solid rgb(185, 185, 185);
   color: white;
-  background-color: green;
+  background-color: rgb(185, 185, 185);
   border-radius: 5px;
   padding: 3px;
 }
 .ukljuceno:hover{
-  background-color: limeGreen;
+  background-color: rgb(215, 215, 215);;
   color: white;
   cursor: pointer;
   transition-duration: 0.8s;
-  border: 2px solid limeGreen;
+  border: 2px solid rgb(215, 215, 215);;
 }
 .ukljuceno:active{
-    background-color: darkGreen;
+    background-color: rgb(255,255,255);
+    color: black;
 }
 /*-------- ^^^Gumbovi lista^^^ --------*/
 /*-------- div u kojem se nalazi pozadina --------*/
@@ -73,7 +76,6 @@ body{
   align-items: center;
   display: flex;
   justify-content: center;
-  background-color: rgb(202, 223, 195);
   padding-bottom: 5px;
   padding-top: 5px;
 }
@@ -100,6 +102,7 @@ body{
 #rekordi{
   float: right;
   width: 15%;
+  color: rgb(153, 153, 153);
 }
 /*-------- ^^^div gdje se nalazi bodovi i rekord^^^ --------*/
 /*-------- div gdje su postavke --------*/
@@ -108,51 +111,85 @@ body{
   margin: auto;
   margin-top: 5px;
 }
+#rep, #glava{
+  background-color: rgb(135, 135, 135);
+  border: 1px solid rgb(135, 135, 135);
+  border-radius: 5px;
+  width: 25px;
+  height: 20px;
+  outline: none;
+}
+#rep:hover, #glava:hover{
+  background-color: rgb(153, 153, 153);
+  cursor: pointer;
+  transition-duration: 0.8s;
+}
 #brojHrane{
   outline: none;
   padding: 2px;
-  border: 2px solid red;
+  border: 2px solid rgb(135, 135, 135);
   border-radius: 3px;
-  width: 25px;
+  width: 20px;
 }
 
 #glava{
   margin-left: 10px
 }
 #Pmultiplayer{
-  position: relative;
-  left: 43%;
-  margin-top: 16px;
+  margin: 15px 25px 0px 0px;
 }
 #Pzvuk{
   float: right;
   position: relative;
   right: 13%;
-  color: rgb(130, 69, 223);
+  color: white;
 }
 #volume{
   float: left;
   margin-left: 90px;
   margin-top: 5px;
 }
+.zvuk{
+  margin-top: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 13px;
+  background: rgb(153, 153, 153);
+  outline: none;
+  border-radius: 10px;
+  opacity: 0.5;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.3s;
+}
+.zvuk::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  background: rgb(195, 195, 195);
+}
+.zvuk:hover{
+  opacity: 1;
+}
 /*-------- ^^^div gdje su postavke^^^ --------*/
 /*-------- Postavke gumb --------*/
 #togglePostavke{
   margin: 1px;
   margin-left: 310px;
-  color: rgb(130, 69, 223);
-  border: 2px solid rgb(130, 69, 223);
+  color: rgb(153, 153, 153);
+  border: 2px solid rgb(153, 153, 153);
   border-radius: 5px;
   padding: 3px;
 }
 #togglePostavke:hover{
   transition-duration: 0.2s;
   color: white;
-  background-color: rgb(130, 69, 223);
+  background-color: rgb(153, 153, 153);
   cursor: pointer;
 }
 #togglePostavke:active{
-  background-color: rgb(166, 75, 149);
+  background-color: rgb(185, 185, 185);
 }
 /*--------^^^ Postavke gumb^^^ --------*/
 li{
@@ -164,24 +201,26 @@ ul{
   margin-right: 0px;
 }
 hr{
-  border: 1px solid rgb(130, 69, 223);
+  border: 1px solid rgb(153, 153, 153);
 }
 fieldset{
+  background-color: rgb(70, 70, 70);
   margin: 0px;
-  border: 2px solid rgb(130, 69, 223);
+  border: 2px solid rgb(153, 153, 153);
   border-radius: 16px;
-  box-shadow: 6px 6px 10px #888888;
 }
 option{
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(70, 70, 70);
 }
 select{
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(70, 70, 70);
   outline: none;
   border: none;
+  color: rgb(232, 232, 232);
 }
 legend{
-  border: 2px solid rgb(130, 69, 223);
+  background-color: rgb(70, 70, 70);
+  border: 2px solid rgb(153, 153, 153);
   border-radius: 8px;
   padding: 2px;
 }

@@ -14,27 +14,11 @@ $(function(){
   });
 
   $("#rep").on("change", function(){
-    switch ($("#rep option:selected").text()){
-      case "Plava":
-        rep = [0,0,255];
-        break;
-      case "Bijela":
-        rep = [255,255,255];
-        break;
-      case "Crvena":
-        rep = [255,0,0];
-    }
+    rep = color($("#rep").val());
   });
 
   $("#glava").on("change", function(){
-    switch ($("#glava option:selected").text()) {
-      case "Bijela":
-        glava = [255,255,255];
-        break;
-      case "Zelena":
-        glava = [0,255,0];
-      break
-    }
+    glava = color($("#glava").val());
   });
 
   // Toggle postavke gumb
@@ -50,9 +34,9 @@ $(function(){
     $("#volume").text($("#zvuk").val());
     jacinaZvuka = $("#zvuk").val();
     if(jacinaZvuka > 40)
-      $("#volume").css({color: "red"});
+      $("#volume").css({color: "rgb(171, 54, 54)"});
     else
-      $("#volume").css({color: "black"});
+      $("#volume").css({color: "white"});
 
     jacinaZvuka = jacinaZvuka / 100;
     zvukGumb.setVolume(jacinaZvuka);
@@ -98,13 +82,13 @@ $(function(){
   $("#hrana").on("click", function(){
     if(viseHrani){
       $("#hrana").removeClass("ukljuceno").addClass("iskljuceno");
-      $("#brojHrane").css({border: "2px solid red"});
+      $("#brojHrane").css({border: "2px solid rgb(135, 135, 135)"});
       $("#brojHrane").hide("slow");
       viseHrani = false;
     } else {
       $("#hrana").removeClass("iskljuceno").addClass("ukljuceno");
       $("#brojHrane").show("slow");
-      $("#brojHrane").css({border: "2px solid green"});
+      $("#brojHrane").css({border: "2px solid rgb(185, 185, 185)"});
       viseHrani = true;
     }
     zvukGumb.play();
@@ -118,7 +102,6 @@ $(function(){
     } else {
       broj = $("#brojHrane").val();
     }
-    print(broj);
     brojHrane = broj;
   });
 
@@ -130,5 +113,6 @@ $(function(){
       $("#Pmultiplayer").removeClass("iskljuceno").addClass("ukljuceno");
       multiplayer = true;
     }
+    zvukGumb.play();
   });
 });

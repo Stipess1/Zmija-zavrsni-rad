@@ -49,8 +49,6 @@ function preload(){
   zvukHrana.setVolume(0.1);
   zvukKraj.setVolume(0.1);
   zvukRekord.setVolume(0.1);
-  if(lokalRekord === null)
-    lokalRekord = 0;
 }
 
 function setup() {
@@ -75,16 +73,14 @@ function draw() {
   } else {
     zmija.provjeriSmjer();
     background(0);
+    polje();
     prikaziHranu();
     if(multiplayer){
       zmija2.provjeriSmjer();
-      noStroke();
       zmija2.prikazi(false);
       zmija2.rubovi();
       zmija2.smrt();
     }
-    polje();
-    noStroke();
     zmija.prikazi(true);
     zmija.rubovi();
     pojediHranu();
@@ -104,6 +100,7 @@ function polje(){
       line(0, i, rezolucija.sirina, i);
     }
   }
+  noStroke();
 }
 
 function prikaziHranu(){
@@ -165,7 +162,6 @@ function skreni() {
       zmija.bodovi++;
     zmija.xbrzina = 1;
     zmija.ybrzina = 0;
-
   }
 }
 
@@ -174,24 +170,30 @@ function dvaIgraca(){
     if(zmija.x == zmija2.x && zmija.y == zmija2.y){
       if(zmija.rep.length > zmija2.rep.length){
         zmija2.kraj();
+        zmija.bodovi++;
       } else if(zmija.rep.length == zmija2.rep.length){
         pocniDemo();
       } else{
         zmija.kraj();
+        zmija2.bodovi++;
       }
       return true;
     }
     for(let i = 0; i < zmija.rep.length; i++){
       if(zmija2.x == zmija.rep[i].x && zmija2.y == zmija.rep[i].y){
         zmija2.kraj();
-        $drugiIgrac.text(0);
+        let bod = parseInt($prviIgrac.text());
+        bod+=1;
+        $prviIgrac.text(bod);
         zvukKraj.play();
       }
     }
     for(let i = 0; i < zmija2.rep.length; i++){
       if(zmija.x == zmija2.rep[i].x && zmija.y == zmija2.rep[i].y){
         zmija.kraj();
-        $prviIgrac.text(0);
+        let bod = parseInt($drugiIgrac.text());
+        bod+=1;
+        $drugiIgrac.text(bod);
         zvukKraj.play();
       }
     }
@@ -221,18 +223,16 @@ function pojediHranu(){
         zvukHrana.play();
         if(!multiplayer){
           zmija.brzina(zmija.bodovi);
-          $("#bod").text(this.bodovi);
+          $("#bod").text(zmija.bodovi);
           if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
-            $("#rekord").text(this.bodovi);
+            $("#rekord").text(zmija.bodovi);
             $("#rekordi").css({color: "rgb(154, 170, 26)"})
-            localStorage.setItem("rekord", this.bodovi);
+            localStorage.setItem("rekord", zmija.bodovi);
             if(!boolRekord){
               zvukRekord.play();
               boolRekord = true;
             }
           }
-        } else {
-          $prviIgrac.text(zmija.bodovi);
         }
       } else if (multiplayer) {
         for(let i = 0; i < Vhrane.length; i++){
@@ -254,7 +254,6 @@ function pojediHranu(){
             }
             zmija2.bodovi++;
             zvukHrana.play();
-            $drugiIgrac.text(zmija2.bodovi);
           }
         }
       }
@@ -278,14 +277,11 @@ function pojediHranu(){
             boolRekord = true;
           }
         }
-      } else {
-        $prviIgrac.text(zmija.bodovi);
       }
     } else if(multiplayer){
       if(zmija2.x == hrana.x && zmija2.y == hrana.y){
         hrana.novaHrana();
         zmija2.bodovi++;
-        $drugiIgrac.text(zmija2.bodovi);
         zvukHrana.play();
       }
     }
@@ -294,7 +290,7 @@ function pojediHranu(){
 
 function pocniIgru(){
   clear();
-  rezolucija.provjeriRezoluciju();
+  rezolucija.provjeriRezoluciju(windowWidth, windowHeight);
   pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
   zmija.kraj();
@@ -304,10 +300,12 @@ function pocniIgru(){
 
   $("#postavke").hide("slow");
   $togglePostavke.css({marginLeft: "202px"});
+  if(lokalRekord === null){
+    $("#rekord").text(0);
+  }
 
   if(multiplayer)
   {
-    zmija2 = new Zmija();
     zmija2.x = 120;
     zmija2.y = 120;
     zmija2.xbrzina = 1;
@@ -320,18 +318,24 @@ function pocniIgru(){
 }
 
 function pocniDemo(){
+  rezolucija = new Rezolucija();
+  rezolucija.postaviDemoRezoluciju(windowWidth, windowHeight);
+  zmija2 = new Zmija();
+  hrana  = new Hrana();
+  zmija  = new Zmija();
+
   clear();
   frameRate(frame);
-  pozadina = createCanvas(600, 500);
+  pozadina = createCanvas(rezolucija.sirina, rezolucija.visina);
   pozadina.parent("pozadina");
-  hrana = new Hrana();
-  zmija = new Zmija();
   postaviDemo();
   Vhrane = [];
   postavke = true;
 
   $("#postavke").show("slow");
   $togglePostavke.css({ marginLeft: "310px" });
+  $prviIgrac.text(0);
+  $drugiIgrac.text(0);
   $bodovi.hide();
   $rekordi.hide();
   $prvi.hide();
@@ -384,7 +388,5 @@ function keyPressed() {
        else
         pocniDemo();
       break;
-
   }
-
 }

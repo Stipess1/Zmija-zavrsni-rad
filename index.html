@@ -41,19 +41,12 @@
     <p id="Pzvuk">Zvuk</p>
     <ul class="desno">
       <li><p id="volume">0</p></li>
-      <li><input type="range" min="0" max="100" id="zvuk" class="desno"></li>
+      <li><input type="range" min="0" max="100" id="zvuk" class="desno zvuk"></li>
       <li><p class="desno iskljuceno" id="Pmultiplayer">Dva igrača</p></li>
     </ul>
       <ul>
-        <li><label for="rep">Rep: </label><select id="rep" name="">
-          <option value="1">Bijela</option>
-          <option value="2">Crvena</option>
-          <option value="3">Plava</option>
-        </select></li>
-        <li><label for="glava">Glava: </label><select id="glava" name="">
-          <option value="1">Bijela</option>
-          <option value="2">Zelena</option>
-        </select></li>
+        <li><label for="rep">Rep: <input type="color" name="" id="rep" value="#FFFFFF"> </li>
+        <li><label for="glava">Glava: <input type="color" name="" id="glava" value="#FFFFFF"> </li>
         <li><p class="iskljuceno" id="rubovi">Rubovi</p></li>
         <li><p class="iskljuceno" id="hrana">Više hrane</p><input type="text" id="brojHrane" maxlength="2" value="4" placeholder="Broj"></li>
         <li><p class="iskljuceno" id="polje">Polje</p></li>

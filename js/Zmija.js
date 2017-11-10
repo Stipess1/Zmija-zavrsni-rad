@@ -17,22 +17,25 @@ function Zmija(){
     this.rep[this.bodovi-1] = createVector(this.x, this.y);
     for(let i = 0; i < this.rep.length; i++){
       let pos = this.rep[i];
-      if(bool)
+      if (bool) {
         fill(rep);
-      else
-        fill(255);
+      } else {
+        fill(23, 168, 54);
+      }
+      noStroke();
         rect(this.rep[i].x, this.rep[i].y, resetka, resetka);
     }
 
     this.x += this.xbrzina * resetka;
     this.y += this.ybrzina * resetka;
 
-    if(bool){
+    if(bool)
       fill(glava);
-    } else {
-      fill(255);
-    }
+    else
+      fill(165, 165, 165);
+    noStroke();
     rect(this.x, this.y, resetka, resetka);
+
   }
 
   this.rubovi = function(){
@@ -78,7 +81,6 @@ function Zmija(){
   }
 
   this.kraj = function(){
-
     this.x = 60;
     this.y = 60;
     this.ybrzina = 0;
@@ -87,7 +89,7 @@ function Zmija(){
     this.rep = [];
     frameRate(15);
     $("#bod").text(this.bodovi);
-    $("#rekordi").css({color: "black"})
+    $("#rekordi").css({color: "rgb(153, 153, 153)"})
     boolRekord = false;
     if(!postavke)
       zvukKraj.play();

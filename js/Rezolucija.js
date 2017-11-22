@@ -1,8 +1,10 @@
-function Rezolucija(){
+function Rezolucija()
+{
   this.sirina;
   this.visina;
 
-    this.provjeriRezoluciju = function(sirina, visina){
+    this.provjeriRezoluciju = function(sirina, visina)
+    {
       if(sirina >= 1900 || sirina === 1700)
         this.sirina = 1900;
       else if (sirina >= 1600 || sirina === 1600)
@@ -20,13 +22,11 @@ function Rezolucija(){
         this.visina = 600;
     }
 
-    this.postaviDemoRezoluciju = function(sirina, visina){
-      if(sirina >= 1000)
-        this.sirina = 800;
+    this.postaviDemoRezoluciju = function(sirina, visina)
+    {
 
-      if(visina >= 800){
-        this.visina = 500;
-      }
+      this.sirina = 600;
+      this.visina = (visina - 320) - (visina % 20);
     }
 
 }

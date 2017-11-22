@@ -9,6 +9,9 @@ let rubovi = false;
 let viseHrani = false;
 let multiplayer = false;
 let zmije = [];
+let bonus = [10, 40, 80];
+let timer;
+let trenutnoVrijeme;
 /*
   kada igrac stisne dvije tipke u istom trenutku
   zna se desit da zmija pojede samu sebe
@@ -71,6 +74,7 @@ function draw() {
     hrana.stvoriHranu();
     zmija.prikazi(true);
   } else {
+    trenutnoVrijeme = millis();
     zmija.provjeriSmjer();
     background(0);
     polje();
@@ -220,14 +224,21 @@ function pojediHranu(){
           }
         }
         zmija.bodovi++;
+        let bod = zmija.bodovi;
+        if(bonus.includes(zmija.bodovi))
+        {
+          // Kada pojede odredeno hrane stvori bonus...
+          timer = trenutnoVrijeme + 10000;
+
+        }
         zvukHrana.play();
         if(!multiplayer){
           zmija.brzina(zmija.bodovi);
-          $("#bod").text(zmija.bodovi);
+          $("#bod").text(bod);
           if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
-            $("#rekord").text(zmija.bodovi);
+            $("#rekord").text(bod);
             $("#rekordi").css({color: "rgb(154, 170, 26)"})
-            localStorage.setItem("rekord", zmija.bodovi);
+            localStorage.setItem("rekord", bod);
             if(!boolRekord){
               zvukRekord.play();
               boolRekord = true;
@@ -264,14 +275,15 @@ function pojediHranu(){
     {
       hrana.novaHrana();
       zmija.bodovi++;
+      let bod = zmija.bodovi;
       zmija.brzina(zmija.bodovi);
       zvukHrana.play();
       if(!multiplayer){
-        $("#bod").text(zmija.bodovi);
+        $("#bod").text(bod);
         if (parseInt($("#bod").text()) > parseInt($("#rekord").text())){
-          $("#rekord").text(zmija.bodovi);
+          $("#rekord").text(bod);
           $("#rekordi").css({color: "rgb(154, 170, 26)"})
-          localStorage.setItem("rekord", zmija.bodovi);
+          localStorage.setItem("rekord", bod);
           if(!boolRekord){
             zvukRekord.play();
             boolRekord = true;

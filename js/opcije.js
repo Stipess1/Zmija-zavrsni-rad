@@ -96,9 +96,11 @@ $(function(){
 // ---------------
   $("#brojHrane").on("focusout", function(){
     let broj;
-    if(parseInt($("#brojHrane").val()) === null){
+    print($("#brojHrane").val());
+    if(parseInt($("#brojHrane").val()) < 4){
       alert("Upisi broj! default je 4");
       broj = 4;
+      $("#brojHrane").val(broj);
     } else {
       broj = $("#brojHrane").val();
     }

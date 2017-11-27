@@ -8,9 +8,13 @@ let Vhrane = [];
 let rubovi = false;
 let viseHrani = false;
 let multiplayer = false;
-let zmije = [];
+// Bonus bodovi
+let bonus = false;
+let bonusx;
+let bonusy;
 let timer;
 let trenutnoVrijeme;
+let bod = 0;
 /*
   kada igrac stisne dvije tipke u istom trenutku
   zna se desit da zmija pojede samu sebe
@@ -40,6 +44,8 @@ let brojHrane = 4;
 let $bodovi;
 let $rekordi
 let $togglePostavke
+
+let BONUS_VRIJEME = 10000;
 
 function preload()
 {
@@ -79,10 +85,12 @@ function draw()
   else
   {
     trenutnoVrijeme = millis();
+    timerIsteko();
     zmija.provjeriSmjer();
     background(0);
     polje();
     prikaziHranu();
+    prikaziBonus();
     if(multiplayer)
     {
       zmija2.provjeriSmjer();
@@ -93,12 +101,14 @@ function draw()
     zmija.prikazi(true);
     zmija.rubovi();
     pojediHranu();
+    pojediBonus();
     zmija.smrt();
     dvaIgraca();
   }
 }
 
-function polje(){
+function polje()
+{
   if(resetke){
     for(let i = 20; i < rezolucija.sirina; i+=20)
     {
@@ -114,7 +124,8 @@ function polje(){
   noStroke();
 }
 
-function prikaziHranu(){
+function prikaziHranu()
+{
   if(viseHrani){
     for(let i = 0; i < Vhrane.length; i++)
       Vhrane[i].stvoriHranu();
@@ -122,6 +133,38 @@ function prikaziHranu(){
   else{
     hrana.stvoriHranu();
   }
+}
+
+function prikaziBonus()
+{
+  if(bonus)
+  {
+    fill(0,255,0);
+    rect(bonusx, bonusy, resetka, resetka);
+  }
+  else
+  {
+    bonusx = null;
+    bonsuy = null;
+  }
+}
+
+function pojediBonus()
+{
+  if(zmija.x == bonusx && zmija.y == bonusy)
+  {
+    bod+=5;
+    dodajBod(bod);
+    timer = 0;
+    bonus = false;
+    zvukHrana.play();
+  }
+}
+
+function timerIsteko()
+{
+  if(trenutnoVrijeme > timer)
+    bonus = false;
 }
 
 function viHrane()
@@ -259,6 +302,42 @@ function dodajBod(bod)
   }
 }
 
+
+function objektNaHrani(objektx, objekty)
+{
+  for(let i = 0; i < Vhrane.length; i++)
+  {
+    if(objektx == Vhrane[i].x && objekty == Vhrane[i].y)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+// dodat funkciju
+
+function dodajBonus()
+{
+  let check = true;
+  while(check)
+  {
+    let stupac = rezolucija.sirina / resetka;
+    let redak  = rezolucija.visina / resetka;
+
+    let matStupac = floor(random(stupac)) * resetka;
+    let matRedak  = floor(random(redak))  * resetka;
+
+    if(!objektNaHrani(matStupac, matRedak))
+    {
+      check = false;
+      bonus = true;
+      bonusx = matStupac;
+      bonusy = matRedak;
+    }
+  }
+
+}
+
 function pojediHranu()
 {
   if(viseHrani)
@@ -270,7 +349,12 @@ function pojediHranu()
         pregledajPostojecuHranu(i);
 
         zmija.bodovi++;
-        let bod = zmija.bodovi;
+        bod++;
+        if (bod % 15 == 0)
+        {
+          timer = trenutnoVrijeme + BONUS_VRIJEME;
+          dodajBonus();
+        }
         dodajBod(bod);
         zvukHrana.play();
 
@@ -294,7 +378,12 @@ function pojediHranu()
     {
       hrana.novaHrana();
       zmija.bodovi++;
-      let bod = zmija.bodovi;
+      bod++;
+      if (bod == 10)
+      {
+        timer = trenutnoVrijeme + BONUS_VRIJEME;
+        dodajBonus();
+      }
       zmija.brzina(zmija.bodovi);
       zvukHrana.play();
       dodajBod(bod);

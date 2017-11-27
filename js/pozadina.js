@@ -314,7 +314,6 @@ function objektNaHrani(objektx, objekty)
   }
   return false;
 }
-// dodat funkciju
 
 function dodajBonus()
 {

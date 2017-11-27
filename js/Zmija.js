@@ -87,6 +87,7 @@ function Zmija(){
     this.ybrzina = 0;
     this.xbrzina = 1;
     this.bodovi = 0;
+    bod = 0;
     this.rep = [];
     frameRate(15);
     $("#bod").text(this.bodovi);

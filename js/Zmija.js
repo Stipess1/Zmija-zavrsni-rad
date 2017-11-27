@@ -50,7 +50,8 @@ function Zmija(){
         this.y = rezolucija.visina - 20;
     }
     else {
-      if(this.x >= width || this.y >= height || this.y < 0 || this.x < 0){
+      if(this.x >= width || this.y >= height || this.y < 0 || this.x < 0)
+      {
         this.kraj();
       }
     }

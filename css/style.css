@@ -4,6 +4,8 @@ body{
   font-weight: bold;
   color: white;
   user-select: none;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 .ljevo{
   float: right;
@@ -146,8 +148,8 @@ body{
 }
 #volume{
   float: left;
-  margin-left: 90px;
-  margin-top: 5px;
+  left: 35%;
+  position: relative;
 }
 .zvuk{
   margin-top: 5px;

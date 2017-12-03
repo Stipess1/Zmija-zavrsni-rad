@@ -45,7 +45,7 @@ let $bodovi;
 let $rekordi
 let $togglePostavke
 
-let BONUS_VRIJEME = 10000;
+const BONUS_VRIJEME = 5000;
 
 function preload()
 {
@@ -85,7 +85,7 @@ function draw()
   else
   {
     trenutnoVrijeme = millis();
-    timerIsteko();
+    timerIstekao();
     zmija.provjeriSmjer();
     background(0);
     polje();
@@ -142,26 +142,24 @@ function prikaziBonus()
     fill(0,255,0);
     rect(bonusx, bonusy, resetka, resetka);
   }
-  else
-  {
-    bonusx = null;
-    bonsuy = null;
-  }
 }
 
 function pojediBonus()
 {
-  if(zmija.x == bonusx && zmija.y == bonusy)
+  if(bonus)
   {
-    bod+=5;
-    dodajBod(bod);
-    timer = 0;
-    bonus = false;
-    zvukHrana.play();
+    if(zmija.x == bonusx && zmija.y == bonusy)
+    {
+      bod+=5;
+      dodajBod(bod);
+      timer = 0;
+      bonus = false;
+      zvukHrana.play();
+    }
   }
 }
 
-function timerIsteko()
+function timerIstekao()
 {
   if(trenutnoVrijeme > timer)
     bonus = false;
@@ -175,29 +173,11 @@ function viHrane()
     {
       Vhrane[i] = new Hrana();
       Vhrane[i].novaHrana();
+      pregledajPostojecuHranu(i);
       if(Vhrane[i].x === zmija.x && Vhrane[i].y === zmija.y)
         Vhrane[i].novaHrana();
     }
-    let check = false;
-    for(let i = 0; i < brojHrane-1; i++)
-    {
-      for(let j = 1; j < brojHrane-1; j++)
-      {
-        if(i != j)
-        {
-          if(Vhrane[i].x === Vhrane[j].x && Vhrane[i].y === Vhrane[j].y)
-          {
-            check = true;
-            while(check)
-            {
-              Vhrane[i].novaHrana();
-              if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y)
-                check = false;
-            }
-          }
-        }
-      }
-    }
+
   }
   else
     hrana.novaHrana();
@@ -378,7 +358,7 @@ function pojediHranu()
       hrana.novaHrana();
       zmija.bodovi++;
       bod++;
-      if (bod == 10)
+      if (bod % 15 == 0)
       {
         timer = trenutnoVrijeme + BONUS_VRIJEME;
         dodajBonus();
@@ -407,15 +387,15 @@ function multiplayerPocetak()
   zmija.bodovi = 0;
   zmija.ybrzina = -1;
   zmija.xbrzina = 0;
-  zmija.x = postavix + 60 - (postavix % 20);
-  zmija.y = postaviy - (postaviy % 20);
+  zmija.x = postavix + 60 - (postavix % resetka);
+  zmija.y = postaviy - (postaviy % resetka);
   //
   zmija2.rep = [];
   zmija2.bodovi = 0;
   zmija2.ybrzina = 1;
   zmija2.xbrzina = 0;
-  zmija2.x =  postavix - 60 - (postavix % 20);
-  zmija2.y = postaviy - (postaviy % 20) ;
+  zmija2.x =  postavix - 60 - (postavix % resetka);
+  zmija2.y = postaviy - (postaviy % resetka) ;
 
 }
 
@@ -478,8 +458,8 @@ function pocniDemo()
 function postaviDemo()
 {
   zmija.xbrzina = 1;
-  zmija.x = 20;
-  zmija.y = 20;
+  zmija.x = resetka;
+  zmija.y = resetka;
 }
 
 function keyPressed()

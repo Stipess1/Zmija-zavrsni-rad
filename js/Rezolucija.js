@@ -7,16 +7,16 @@ function Rezolucija()
     {
 
       let tempSirina = (sirina - 10);
-      this.sirina = tempSirina - (tempSirina % 20);
+      this.sirina = tempSirina - (tempSirina % resetka);
       let tempVisina = (visina - 50);
-      this.visina = tempVisina - (tempVisina % 20);
+      this.visina = tempVisina - (tempVisina % resetka);
     }
 
     this.postaviDemoRezoluciju = function(sirina, visina)
     {
 
       this.sirina = 600;
-      this.visina = (visina - 320) - (visina % 20);
+      this.visina = (visina - 320) - (visina % resetka);
       if(visina > 800)
       {
         this.visina = 500;

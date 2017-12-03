@@ -1,28 +1,32 @@
-let jacinaZvuka;
 
-$(function(){
+
+$(function()
+{
   $("#brojHrane").hide();
   $(".prvi").hide();
   $(".drugi").hide();
   $("#zvuk").val("10");
   $("#volume").text($("#zvuk").val());
 
-  $(".btn").on("click", function(){
-    // Gumb igraj
+  $(".btn").on("click", function()
+  {
       pocniIgru();
       zvukGumb.play();
   });
 
-  $("#rep").on("change", function(){
+  $("#rep").on("change", function()
+  {
     rep = color($("#rep").val());
   });
 
-  $("#glava").on("change", function(){
+  $("#glava").on("change", function()
+  {
     glava = color($("#glava").val());
   });
 
   // Toggle postavke gumb
-  $("#togglePostavke").on("click",function(){
+  $("#togglePostavke").on("click",function()
+  {
     $("#postavke").toggle("slow");
     zvukGumb.play();
     if(!postavke)
@@ -30,9 +34,10 @@ $(function(){
   });
 
   // Zvuk slider
-  $("#zvuk").on("input", function(){
+  $("#zvuk").on("input", function()
+  {
     $("#volume").text($("#zvuk").val());
-    jacinaZvuka = $("#zvuk").val();
+    let jacinaZvuka = $("#zvuk").val();
     if(jacinaZvuka > 40)
       $("#volume").css({color: "rgb(171, 54, 54)"});
     else
@@ -54,12 +59,15 @@ $(function(){
   // -------------------
 
   // Gumb rubovi
-  $("#rubovi").on("click", function(){
-    if(rubovi){
+  $("#rubovi").on("click", function()
+  {
+    if(rubovi)
+    {
       $("#rubovi").removeClass("ukljuceno").addClass("iskljuceno");
       rubovi = false;
     }
-    else {
+    else
+    {
       $("#rubovi").removeClass("iskljuceno").addClass("ukljuceno");
       rubovi = true;
     }
@@ -67,11 +75,15 @@ $(function(){
   });
 // ----------------
 // Gumb polje
-  $("#polje").on("click", function(){
-    if(resetke) {
+  $("#polje").on("click", function()
+  {
+    if(resetke)
+    {
       $("#polje").removeClass("ukljuceno").addClass("iskljuceno");
       resetke = false;
-    }else {
+    }
+    else
+    {
       $("#polje").removeClass("iskljuceno").addClass("ukljuceno");
       resetke = true;
     }
@@ -79,13 +91,17 @@ $(function(){
   });
 // ---------------
 // Hrana gumb
-  $("#hrana").on("click", function(){
-    if(viseHrani){
+  $("#hrana").on("click", function()
+  {
+    if(viseHrani)
+    {
       $("#hrana").removeClass("ukljuceno").addClass("iskljuceno");
       $("#brojHrane").css({border: "2px solid rgb(135, 135, 135)"});
       $("#brojHrane").hide("slow");
       viseHrani = false;
-    } else {
+    }
+    else
+    {
       $("#hrana").removeClass("iskljuceno").addClass("ukljuceno");
       $("#brojHrane").show("slow");
       $("#brojHrane").css({border: "2px solid rgb(185, 185, 185)"});
@@ -94,23 +110,32 @@ $(function(){
     zvukGumb.play();
   });
 // ---------------
-  $("#brojHrane").on("focusout", function(){
+  $("#brojHrane").on("keyup", function()
+  {
     let broj;
-    if(parseInt($("#brojHrane").val()) < 4){
+    if(int($("#brojHrane").val()) < 4 || $("#brojHrane").val() === ""
+    || isNaN(int($("#brojHrane").val())))
+    {
       alert("Upisi broj! default je 4");
       broj = 4;
       $("#brojHrane").val(broj);
-    } else {
+    }
+    else
+    {
       broj = $("#brojHrane").val();
     }
     brojHrane = broj;
   });
 
-  $("#Pmultiplayer").on("click", function(){
-    if(multiplayer){
+  $("#Pmultiplayer").on("click", function()
+  {
+    if(multiplayer)
+    {
       $("#Pmultiplayer").removeClass("ukljuceno").addClass("iskljuceno");
       multiplayer = false;
-    } else {
+    }
+    else
+    {
       $("#Pmultiplayer").removeClass("iskljuceno").addClass("ukljuceno");
       multiplayer = true;
     }

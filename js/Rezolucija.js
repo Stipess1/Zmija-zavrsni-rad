@@ -5,7 +5,6 @@ function Rezolucija()
 
     this.provjeriRezoluciju = function(sirina, visina)
     {
-
       let tempSirina = (sirina - 10);
       this.sirina = tempSirina - (tempSirina % resetka);
       let tempVisina = (visina - 50);
@@ -14,7 +13,6 @@ function Rezolucija()
 
     this.postaviDemoRezoluciju = function(sirina, visina)
     {
-
       this.sirina = 600;
       this.visina = (visina - 320) - (visina % resetka);
       if(visina > 800)

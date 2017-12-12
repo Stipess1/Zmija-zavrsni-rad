@@ -15,10 +15,6 @@ let bonusy;
 let timer;
 let trenutnoVrijeme;
 let bod = 0;
-/*
-  kada igrac stisne dvije tipke u istom trenutku
-  zna se desit da zmija pojede samu sebe
-*/
 let frame = 15;
 // Zvukovi
 let zvukHrana;
@@ -46,6 +42,7 @@ let $rekordi
 let $togglePostavke
 
 const BONUS_VRIJEME = 5000;
+const BONUS = 30;
 
 function preload()
 {
@@ -173,7 +170,11 @@ function viHrane()
     {
       Vhrane[i] = new Hrana();
       Vhrane[i].novaHrana();
-      pregledajPostojecuHranu(i);
+
+      if(Vhrane.length > 1)
+      {
+        pregledajPostojecuHranu(i);
+      }
       if(Vhrane[i].x === zmija.x && Vhrane[i].y === zmija.y)
         Vhrane[i].novaHrana();
     }
@@ -239,6 +240,7 @@ function dvaIgraca()
   }
 }
 
+
 function pregledajPostojecuHranu(i)
 {
   Vhrane[i].novaHrana();
@@ -246,17 +248,15 @@ function pregledajPostojecuHranu(i)
   for(let j = 0; j < Vhrane.length; j++)
   {
     if(i != j){
-      if(Vhrane[j].x == Vhrane[i].x && Vhrane[j].y == Vhrane[i].y)
+      while(Vhrane[j].x == Vhrane[i].x && Vhrane[j].y == Vhrane[i].y)
       {
+        Vhrane[i].novaHrana();
         check = true;
-        while(check)
-        {
-          Vhrane[i].novaHrana();
-          if(Vhrane[i].x != Vhrane[j].x && Vhrane[i].y != Vhrane[j].y)
-          {
-            check = false;
-          }
-        }
+      }
+      if(check)
+      {
+        j = 0;
+        check = false;
       }
     }
   }
@@ -329,7 +329,7 @@ function pojediHranu()
 
         zmija.bodovi++;
         bod++;
-        if (bod % 15 == 0)
+        if (bod % BONUS == 0)
         {
           timer = trenutnoVrijeme + BONUS_VRIJEME;
           dodajBonus();
@@ -358,7 +358,7 @@ function pojediHranu()
       hrana.novaHrana();
       zmija.bodovi++;
       bod++;
-      if (bod % 15 == 0)
+      if (bod % BONUS == 0)
       {
         timer = trenutnoVrijeme + BONUS_VRIJEME;
         dodajBonus();

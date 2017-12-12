@@ -126,6 +126,7 @@ $(function()
     }
     brojHrane = broj;
   });
+  brojHrane = $("#brojHrane").val();
 
   $("#Pmultiplayer").on("click", function()
   {

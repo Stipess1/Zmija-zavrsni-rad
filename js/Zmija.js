@@ -45,9 +45,9 @@ function Zmija(){
       else if(this.y >= rezolucija.visina)
         this.y = 0;
       else if(this.x < 0)
-        this.x = rezolucija.sirina - 20;
+        this.x = rezolucija.sirina - resetka;
       else if(this.y < 0)
-        this.y = rezolucija.visina - 20;
+        this.y = rezolucija.visina - resetka;
     }
     else {
       if(this.x >= width || this.y >= height || this.y < 0 || this.x < 0)
